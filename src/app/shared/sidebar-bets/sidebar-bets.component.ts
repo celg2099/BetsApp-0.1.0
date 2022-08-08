@@ -34,6 +34,11 @@ export class SidebarBetsComponent {
 
 // qatar/qatar-stars-league
 
+  get ligasApp() {
+    this.betsService.ligas.sort((a,b) => (a.nombrePublico > b.nombrePublico) ? 1 : ((b.nombrePublico > a.nombrePublico) ? -1 : 0));
+    return this.betsService.ligas;
+  }
+
    constructor( private betsService : BetsService) { }
 
 

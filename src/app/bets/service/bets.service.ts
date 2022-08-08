@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Stage, Summary, Liga, Eps, Event } from '../interface/results.interface';
+import { Summary, Liga, Eps, Event, LigaHomologada } from '../interface/results.interface';
 
 
 @Injectable({
@@ -8,6 +8,116 @@ import { Stage, Summary, Liga, Eps, Event } from '../interface/results.interface
 })
 export class BetsService {
 
+
+ public ligas : LigaHomologada[] = [
+    {
+      nombrePublico: 'Argentina',
+      nombreForApi: 'argentina/primera-division/'
+   },
+   {
+     nombrePublico: 'Guatemala',
+     nombreForApi: 'guatemala/liga-nacional-apertura/'
+   },
+   {
+     nombrePublico: 'Bulgaria',
+     nombreForApi: 'bulgaria/parva-liga/'
+   },
+   {
+     nombrePublico: 'Belgica',
+     nombreForApi: 'belgium/first-division-a/'
+   },
+   {
+     nombrePublico: 'Qatar',
+     nombreForApi: 'qatar/qatar-stars-league/'
+   }
+   ,
+   {
+     nombrePublico: 'España 21/22',
+     nombreForApi: 'spain/laliga-santander-2021-2022/'
+   },
+   {
+    nombrePublico: 'Colombia',
+    nombreForApi: 'colombia/primera-a-clausura/'
+  },
+  {
+   nombrePublico: 'Armenia',
+   nombreForApi: 'armenia/premier-league/'
+  }, 
+  {
+    nombrePublico: 'Mexico',
+    nombreForApi: 'mexico/liga-mx-apertura/'
+  },
+  {
+   nombrePublico: 'Portugal',
+   nombreForApi: 'portugal/primeira-liga/'
+  }, 
+  {
+    nombrePublico: 'Rumania',
+    nombreForApi: 'romania/liga-1/'
+  },
+  {
+   nombrePublico: 'Bolivia',
+   nombreForApi: 'bolivia/primera-division-clausura/'
+  }, 
+  {
+    nombrePublico: 'Chile',
+    nombreForApi: 'chile/primera-division/'
+  },
+  {
+   nombrePublico: 'Inglaterra',
+   nombreForApi: 'england/premier-league/'
+  }, 
+  {
+    nombrePublico: 'China',
+    nombreForApi: 'china/super-league/'
+  },
+  {
+    nombrePublico: 'Costa Rica',
+    nombreForApi: 'costa-rica/primera-division-apertura/'
+   }, 
+   {
+     nombrePublico: 'Dinamarca',
+     nombreForApi: 'denmark/superliga/'
+   },
+   {
+    nombrePublico: 'Ecuador',
+    nombreForApi: 'ecuador/serie-a-2-stage/'
+   }, 
+   {
+     nombrePublico: 'Egipto',
+     nombreForApi: 'egypt/premier-league/'
+   },
+   {
+    nombrePublico: 'El Salvador',
+    nombreForApi: 'el-salvador/primera-division-apertura/'
+   }, 
+   {
+     nombrePublico: 'India',
+     nombreForApi: 'india/indian-super-league/'
+   },
+   {
+    nombrePublico: 'Grecia',
+    nombreForApi: 'greece/super-league/'
+   }, 
+   {
+     nombrePublico: 'Honduras',
+     nombreForApi: 'honduras/liga-nacional-apertura/'
+   },
+   {
+    nombrePublico: 'Israel',
+    nombreForApi: 'israel/premier-league/'
+   }, 
+   {
+     nombrePublico: 'Jordania',
+     nombreForApi: 'jordan/pro-league/'
+   },
+   {
+    nombrePublico: 'Japon',
+    nombreForApi: 'japan/j-league/'
+   } 
+];
+
+//  p
 
   private servicioUrl: string = '/v1/api/app/stage/soccer/';
 
