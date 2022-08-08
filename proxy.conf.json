@@ -1,0 +1,9 @@
+{
+    "/v1/api/*": {
+        "target":"https://prod-public-api.livescore.com",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite": {"^/v1/api" : "https://prod-public-api.livescore.com/v1/api"}
+    }
+}
