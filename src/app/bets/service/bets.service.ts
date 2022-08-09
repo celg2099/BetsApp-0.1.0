@@ -123,6 +123,8 @@ export class BetsService {
 
   public resultados: Summary[] = [];
 
+  public proximos: Summary[] = [];
+
   public shortCount: number[] = [];
 
   public Eventos: Event[] = [];
@@ -144,28 +146,22 @@ export class BetsService {
       .subscribe((resp) => {
         this.Eventos = [];
         this.resultados = [];
+        this.proximos = [];
         this.shortCount = [];
 
         if (resp.Stages.length > 0) {
           if (resp.Stages[0].Events) {
+
             this.Eventos = resp.Stages[0].Events;
 
-            this.Eventos = this.Eventos.filter(e => (e.Tr2OR != undefined));
+            this.setProximosEventos([...this.Eventos]);
             this.Eventos = this.Eventos.filter(e => (e.Eps == Eps.Ft));
 
             var conteo = 0;
             var shortSum = 0;
             this.Eventos.forEach((e) => {
 
-              var itmEvent: Summary = {
-                TLName: e.T1[0].Nm, // Team Local Name
-                TVName: e.T2[0].Nm, // Team Visit Name
-                TLGoals: Number(e.Tr1OR), // Team Visit Goals
-                TVGoals: Number(e.Tr2OR), // Team Visit Goals
-                CurrentCount: -1, // Partidos sin empate hasta nuevo empate
-                Date: new Date(this.getDateFormat(e.Esd.toString()))
-              }
-
+              var itmEvent: Summary = this.getSummaryObj(e);
               shortSum = conteo;
               conteo = (itmEvent.TLGoals == itmEvent.TVGoals) ? 0 : conteo += 1;
 
@@ -188,11 +184,39 @@ export class BetsService {
               this.conteoActual = this.shortCount[0];
             }
             
-
           }
-        }
-        //  localStorage.setItem('resultados', JSON.stringify( this.resultados ));               
+        }             
       })
+  }
+
+
+  setProximosEventos(games:  Event[]) {
+
+   var lst = games.filter(e => (e.Eps == Eps.NS));
+
+   lst.forEach((e) => {
+
+    var itmEvent: Summary = this.getSummaryObj(e);
+
+    this.proximos.push(itmEvent);
+
+  });
+
+
+  }
+
+  getSummaryObj(e: Event): Summary {
+
+    var itmEvent: Summary = {
+      TLName: e.T1[0].Nm, // Team Local Name
+      TVName: e.T2[0].Nm, // Team Visit Name
+      TLGoals: Number(e.Tr1OR), // Team Visit Goals
+      TVGoals: Number(e.Tr2OR), // Team Visit Goals
+      CurrentCount: -1, // Partidos sin empate hasta nuevo empate
+      Date: new Date(this.getDateFormat(e.Esd.toString()))
+    }
+
+    return itmEvent;
   }
 
   getDateFormat(dateStr: string): string {

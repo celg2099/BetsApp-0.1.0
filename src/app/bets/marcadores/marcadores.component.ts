@@ -18,7 +18,6 @@ export class MarcadoresComponent  {
   }
 
 
-
   constructor(private betService : BetsService) {
 
   }  

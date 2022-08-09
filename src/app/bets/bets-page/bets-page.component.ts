@@ -11,6 +11,10 @@ export class BetsPageComponent  {
     return this.betService.ligaActual;
   }
 
+  get juegosFinalizados() {
+    return this.betService.resultados;
+  }
+
   get currentCount() {
     return this.betService.conteoActual;
   }
@@ -24,9 +28,6 @@ export class BetsPageComponent  {
     }
     return a;
   }
-
-
-
 
   constructor(private betService : BetsService) {
 
