@@ -1,9 +1,90 @@
 <hr />
-<div>
-    <button mat-flat-button  (click) = "generarLista( )">Generar Lista</button>
-</div>
-<div>
-    <div *ngFor="let item of hl">
-         {{ item.pais }} - {{ item.conteoActual }} - {{ item.maxConteo }}
+<div class="row">
+    <div>
+        <button mat-flat-button  (click) = "generarLista( )">Generar Lista</button>
     </div>
 </div>
+<br>
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" href="#nav-all" role="tab"
+        aria-controls="nav-all" aria-selected="true">Todos</a>
+      <a class="nav-link" id="nav-only-hot-tab" data-bs-toggle="tab" href="#nav-only-hot" role="tab"
+        aria-controls="nav-only-hot" aria-selected="false">Only HOT</a>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">PAIS</th>
+                            <th scope="col">LIGA</th>
+                            <th scope="col">CONTEO ACTUAL</th>
+                            <th scope="col">MÁXIMO CONTEO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let evento of hl">
+                            <td>{{ evento.pais }}</td>
+                            <td>{{ evento.liga }}</td>
+                            <td>{{ evento.conteoActual }}</td>
+                            <td>{{ evento.maxConteo }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-only-hot" role="tabpanel" aria-labelledby="nav-only-hot-tab">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">PAIS</th>
+                            <th scope="col">LIGA</th>
+                            <th scope="col">CONTEO ACTUAL</th>
+                            <th scope="col">MÁXIMO CONTEO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let e of hl">        
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.pais }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.liga }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.conteoActual }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.maxConteo }}</td>                
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,8 +8,6 @@ import { Eps, HotCheck, LigaHomologada } from '../interface/results.interface';
 })
 export class HotListComponent{
 
-
-
   public hl : HotCheck[] = [];
 
   constructor(private betService : BetsService) { }
@@ -19,8 +17,9 @@ export class HotListComponent{
 
     this.hl = [];
 
+    var ligasOrdenadasByName =  this.betService.ligas;
+    ligasOrdenadasByName =  ligasOrdenadasByName.sort((a,b) => (a.nombrePublico > b.nombrePublico) ? 1 : ((b.nombrePublico > a.nombrePublico) ? -1 : 0));
 
-    var ligasOrdenadasByName =  this.betService.ligas.sort((a,b) => (a.nombrePublico > b.nombrePublico) ? 1 : ((b.nombrePublico > a.nombrePublico) ? -1 : 0));
 
     ligasOrdenadasByName.forEach( e => {
 
@@ -37,8 +36,7 @@ export class HotListComponent{
               var lstEventos = resp.Stages[0].Events;
               lstEventos = lstEventos.filter(e => (e.Eps == Eps.Ft));
 
-          
-
+    
               lstEventos.forEach((itm) => {
 
                 shortSum = conteo;
@@ -49,7 +47,7 @@ export class HotListComponent{
               });
 
               lstCont.push(conteo);
-              if(lstCont.length > 0 ){  mxConteo = Math.max(...lstCont.map(o => o));           };
+              if(lstCont.length > 0 ){  mxConteo = Math.max(...lstCont.map(o => o)); };
 
               var itmEvent: HotCheck = {
                 pais: e.nombrePublico,
@@ -58,7 +56,6 @@ export class HotListComponent{
                 maxConteo: mxConteo,
                 lstConteo: [...lstCont]
               }
-
 
               this.hl.push(itmEvent);
   

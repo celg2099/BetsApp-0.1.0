@@ -7,6 +7,7 @@ import { SharedModule } from '../shared/shared.module';
 import { HotListComponent } from './hot-list/hot-list.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { HotListItemComponent } from './hot-list-item/hot-list-item.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { MatIconModule } from '@angular/material/icon';
     BetsPageComponent,
     MarcadoresComponent,
     NextGamesComponent,
-    HotListComponent
+    HotListComponent,
+    HotListItemComponent
   ],
   exports: [
     BetsPageComponent

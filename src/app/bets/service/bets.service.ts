@@ -172,13 +172,11 @@ export class BetsService {
 
   public getEventosByLiga(liga:string) {
 
-    var r : Event[] = [];
-
     const params = new HttpParams()
     .set('MD', '1');
 
     const url = `${this.servicioUrl}${liga}-6`;
-    return this.http.get<Liga>(url, { params });
+    return  this.http.get<Liga>(url, { params });
     
 
  }
