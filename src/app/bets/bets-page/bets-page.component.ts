@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
+import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
+
 import { BetsService } from '../service/bets.service';
 
 @Component({
@@ -6,6 +9,10 @@ import { BetsService } from '../service/bets.service';
   templateUrl: './bets-page.component.html'
 })
 export class BetsPageComponent  {
+
+  get loading(){
+    return this.betService.loading;
+  }
 
   get currentLegue() {
     return this.betService.ligaActual;

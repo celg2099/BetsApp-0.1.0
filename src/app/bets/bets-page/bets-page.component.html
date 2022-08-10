@@ -1,4 +1,16 @@
-<div *ngIf="juegosFinalizados.length > 0" class="main">
+<div *ngIf="loading">
+  <div class="row">
+    <div class="col-4">      
+    </div>
+    <div class="col-4">
+      <mat-spinner></mat-spinner>
+    </div>
+    <div class="col-4">      
+    </div>
+  </div>
+</div>
+
+<div *ngIf="(juegosFinalizados.length > 0  && !loading) " class="main">
     <div class="row">
         <h2> Liga: <strong class="text-primary"> {{ currentLegue  }} </strong></h2> 
     </div>
@@ -11,7 +23,6 @@
         </div>
     </div>
     <hr />
-
     <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Resultados</a>
@@ -31,6 +42,5 @@
 
         </div>
       </div>
-
 </div>
 

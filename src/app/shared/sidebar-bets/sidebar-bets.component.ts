@@ -43,7 +43,7 @@ export class SidebarBetsComponent {
 
 
    buscar( liga: string ) {
-     
+       this.betsService.loading = true;
        this.betsService.buscarResultados(liga);
    }
 

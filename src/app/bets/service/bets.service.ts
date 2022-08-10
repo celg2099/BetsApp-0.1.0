@@ -114,7 +114,11 @@ export class BetsService {
    {
     nombrePublico: 'Japon',
     nombreForApi: 'japan/j-league/'
-   } 
+   },
+   {
+    nombrePublico: 'Uzbekistan',
+    nombreForApi: 'uzbekistan/superliga/'
+   }  
 ];
 
 //  p
@@ -131,6 +135,8 @@ export class BetsService {
 
   public ligaActual : string = "";
   public conteoActual : number = 0;
+
+  public loading: boolean = false;
 
   constructor(private http: HttpClient) {
 
@@ -155,6 +161,9 @@ export class BetsService {
             this.Eventos = resp.Stages[0].Events;
 
             this.setProximosEventos([...this.Eventos]);
+
+
+            
             this.Eventos = this.Eventos.filter(e => (e.Eps == Eps.Ft));
 
             var conteo = 0;
@@ -183,10 +192,12 @@ export class BetsService {
             if(this.shortCount.length > 0){
               this.conteoActual = this.shortCount[0];
             }
+
+            this.loading = false;
             
           }
         }             
-      })
+      });
   }
 
 
