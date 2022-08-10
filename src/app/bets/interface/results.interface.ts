@@ -7,6 +7,14 @@
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 
+export interface HotCheck {
+    pais: string;
+    liga: string;
+    conteoActual: number;
+    maxConteo: number;
+    lstConteo: number[];
+}
+
 export interface Liga {
     Stages: Stage[];
 }

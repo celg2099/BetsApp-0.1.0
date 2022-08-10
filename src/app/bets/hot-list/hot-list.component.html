@@ -1,0 +1,9 @@
+<hr />
+<div>
+    <button mat-flat-button  (click) = "generarLista( )">Generar Lista</button>
+</div>
+<div>
+    <div *ngFor="let item of hl">
+         {{ item.pais }} - {{ item.conteoActual }} - {{ item.maxConteo }}
+    </div>
+</div>

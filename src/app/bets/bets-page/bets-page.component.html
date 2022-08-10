@@ -1,38 +1,43 @@
-<div *ngIf="loading">
-  <div class="row">
-    <div class="col-4">      
-    </div>
-    <div class="col-4">
-      <mat-spinner></mat-spinner>
-    </div>
-    <div class="col-4">      
-    </div>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-link active" id="nav-resultados-tab" data-bs-toggle="tab" href="#nav-resultados" role="tab"
+      aria-controls="nav-resultados" aria-selected="true">Detalle Liga</a>
+    <a class="nav-link" id="nav-hotlist-tab" data-bs-toggle="tab" href="#nav-hotlist" role="tab"
+      aria-controls="nav-hotlist" aria-selected="false">Hot List</a>
   </div>
-</div>
-
-<div *ngIf="(juegosFinalizados.length > 0  && !loading) " class="main">
-    <div class="row">
-        <h2> Liga: <strong class="text-primary"> {{ currentLegue  }} </strong></h2> 
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-resultados" role="tabpanel" aria-labelledby="nav-resultados-tab">
+    <div *ngIf="loading">
+      <app-loading></app-loading>
     </div>
-    <div class="row">
+    <div *ngIf="(juegosFinalizados.length > 0  && !loading) " class="main">
+      <br/>
+      <div class="row">
+        <h2> Liga: <strong class="text-primary"> {{ currentLegue }} </strong></h2>
+      </div>
+      <div class="row">
         <div class="col-4">
-            <h4> Conteo Actual: <strong>{{ currentCount }} </strong></h4>
+          <h4> Conteo Actual: <strong>{{ currentCount }} </strong></h4>
         </div>
         <div class="col-8">
-            <h4 class="text-success"> Máximo Conteo: <strong> {{ shortResult }} </strong> </h4>
+          <h4 class="text-success"> Máximo Conteo: <strong> {{ shortResult }} </strong> </h4>
         </div>
-    </div>
-    <hr />
-    <nav>
+      </div>
+      <hr />
+      <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-          <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Resultados</a>
-          <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Proximos Juegos</a>
-          <a class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Simulación</a>
+          <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab"
+            aria-controls="nav-home" aria-selected="true">Resultados</a>
+          <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab"
+            aria-controls="nav-profile" aria-selected="false">Proximos Juegos</a>
+          <a class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" href="#nav-contact" role="tab"
+            aria-controls="nav-contact" aria-selected="false">Simulación</a>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <app-marcadores></app-marcadores>
+          <app-marcadores></app-marcadores>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
           <app-next-games></app-next-games>
@@ -42,5 +47,9 @@
 
         </div>
       </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-hotlist" role="tabpanel" aria-labelledby="nav-hotlist-tab">
+     <app-hot-list></app-hot-list>
+  </div>
 </div>
-

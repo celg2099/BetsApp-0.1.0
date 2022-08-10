@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Summary, Liga, Eps, Event, LigaHomologada } from '../interface/results.interface';
+import { Observable } from 'rxjs/internal/Observable';
+import { Summary, Liga, Eps, Event, LigaHomologada, HotCheck } from '../interface/results.interface';
 
 
 @Injectable({
@@ -121,12 +122,11 @@ export class BetsService {
    }  
 ];
 
-//  p
+//
 
   private servicioUrl: string = '/v1/api/app/stage/soccer/';
 
   public resultados: Summary[] = [];
-
   public proximos: Summary[] = [];
 
   public shortCount: number[] = [];
@@ -138,12 +138,14 @@ export class BetsService {
 
   public loading: boolean = false;
 
-  constructor(private http: HttpClient) {
+  public checkList: HotCheck[] = [];
 
+
+
+  constructor(private http: HttpClient) {
   }
 
   buscarResultados(query: string = '') {
-
 
     const params = new HttpParams()
       .set('MD', '1');
@@ -161,45 +163,61 @@ export class BetsService {
             this.Eventos = resp.Stages[0].Events;
 
             this.setProximosEventos([...this.Eventos]);
+            this.setResultados(query);
 
-
-            
-            this.Eventos = this.Eventos.filter(e => (e.Eps == Eps.Ft));
-
-            var conteo = 0;
-            var shortSum = 0;
-            this.Eventos.forEach((e) => {
-
-              var itmEvent: Summary = this.getSummaryObj(e);
-              shortSum = conteo;
-              conteo = (itmEvent.TLGoals == itmEvent.TVGoals) ? 0 : conteo += 1;
-
-              if(itmEvent.TLGoals == itmEvent.TVGoals){ this.shortCount.push(shortSum);}
-
-              itmEvent.CurrentCount = conteo;
-
-              this.resultados.push(itmEvent);
-
-            });
-
-            this.shortCount.push(conteo);
-
-            this.resultados.reverse();
-            this.shortCount.reverse();
-
-            this.ligaActual = query;
-
-            if(this.shortCount.length > 0){
-              this.conteoActual = this.shortCount[0];
-            }
-
-            this.loading = false;
-            
           }
         }             
       });
   }
 
+  public getEventosByLiga(liga:string) {
+
+    var r : Event[] = [];
+
+    const params = new HttpParams()
+    .set('MD', '1');
+
+    const url = `${this.servicioUrl}${liga}-6`;
+    return this.http.get<Liga>(url, { params });
+    
+
+ }
+
+  setResultados(q: string){
+
+    this.Eventos = this.Eventos.filter(e => (e.Eps == Eps.Ft));
+
+    var conteo = 0;
+    var shortSum = 0;
+    this.Eventos.forEach((e) => {
+
+      var itmEvent: Summary = this.getSummaryObj(e);
+      shortSum = conteo;
+      conteo = (itmEvent.TLGoals == itmEvent.TVGoals) ? 0 : conteo += 1;
+
+      if(itmEvent.TLGoals == itmEvent.TVGoals){ this.shortCount.push(shortSum);}
+
+      itmEvent.CurrentCount = conteo;
+
+      this.resultados.push(itmEvent);
+
+    });
+
+    this.shortCount.push(conteo);
+
+    this.resultados.reverse();
+    this.shortCount.reverse();
+
+    this.ligaActual = q;
+
+    if(this.shortCount.length > 0){
+      this.conteoActual = this.shortCount[0];
+    }
+
+    this.loading = false;
+
+
+  }
 
   setProximosEventos(games:  Event[]) {
 
@@ -221,7 +239,7 @@ export class BetsService {
     var itmEvent: Summary = {
       TLName: e.T1[0].Nm, // Team Local Name
       TVName: e.T2[0].Nm, // Team Visit Name
-      TLGoals: Number(e.Tr1OR), // Team Visit Goals
+      TLGoals: Number(e.Tr1OR), // Team Local Goals
       TVGoals: Number(e.Tr2OR), // Team Visit Goals
       CurrentCount: -1, // Partidos sin empate hasta nuevo empate
       Date: new Date(this.getDateFormat(e.Esd.toString()))

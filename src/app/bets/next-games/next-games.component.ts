@@ -8,7 +8,6 @@ import { BetsService } from '../service/bets.service';
 export class NextGamesComponent  {
 
   get nextGames() {
-
     return this.betService.proximos;
   }
 

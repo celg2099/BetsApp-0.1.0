@@ -9,31 +9,6 @@ import { BetsService } from '../../bets/service/bets.service';
 export class SidebarBetsComponent {
 
 
-   ligas : LigaHomologada[] = [
-    {
-      nombrePublico: 'Argentina',
-      nombreForApi: 'argentina/primera-division/'
-   },
-   {
-     nombrePublico: 'Guatemala',
-     nombreForApi: 'guatemala/liga-nacional-apertura/'
-   },
-   {
-     nombrePublico: 'Bulgaria',
-     nombreForApi: 'bulgaria/parva-liga/'
-   },
-   {
-     nombrePublico: 'Belgica',
-     nombreForApi: 'belgium/first-division-a/'
-   },
-   {
-     nombrePublico: 'Qatar',
-     nombreForApi: 'qatar/qatar-stars-league/'
-   }
-];
-
-// qatar/qatar-stars-league
-
   get ligasApp() {
     this.betsService.ligas.sort((a,b) => (a.nombrePublico > b.nombrePublico) ? 1 : ((b.nombrePublico > a.nombrePublico) ? -1 : 0));
     return this.betsService.ligas;
