@@ -12,7 +12,10 @@ pais: "",
 liga: "",
 conteoActual: 0,
 maxConteo: 0,
-lstConteo: []
+gamesFinished: 0,
+totDraw: 0,
+lstConteo: [],
+dateNextGame: ""
 };
 
 }

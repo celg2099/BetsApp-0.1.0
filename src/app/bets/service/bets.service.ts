@@ -120,6 +120,45 @@ export class BetsService {
     nombrePublico: 'Uzbekistan',
     nombreForApi: 'uzbekistan/superliga/'
    }  
+
+   , 
+   {
+     nombrePublico: 'Italia',
+     nombreForApi: 'italy/serie-a/'
+   },
+   {
+    nombrePublico: 'Alemania',
+    nombreForApi: 'germany/bundesliga/'
+   }, 
+   {
+     nombrePublico: 'Francia',
+     nombreForApi: 'france/ligue-1/'
+   },
+   {
+    nombrePublico: 'Holanda',
+    nombreForApi: 'holland/eredivisie/'
+   }, 
+   {
+     nombrePublico: 'Escocia',
+     nombreForApi: 'scotland-premiership/'
+   },
+   {
+    nombrePublico: 'Austria',
+    nombreForApi: 'austria/bundesliga/'
+   }, 
+   {
+     nombrePublico: 'Croacia',
+     nombreForApi: 'croatia/1st-league/'
+   },
+   {
+    nombrePublico: 'Rep. Checa',
+    nombreForApi: 'czech-republic/1st-league/'
+   },
+   {
+    nombrePublico: 'Brasil',
+    nombreForApi: 'brazil/serie-a/'
+   } 
+
 ];
 
 //

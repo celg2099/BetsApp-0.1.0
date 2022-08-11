@@ -24,6 +24,10 @@
                             <th scope="col">LIGA</th>
                             <th scope="col">CONTEO ACTUAL</th>
                             <th scope="col">MÁXIMO CONTEO</th>
+                            <th scope="col">JUEGOS REALIZADOS</th>
+                            <th scope="col">TOTAL EMPATES</th>
+                            <th scope="col">% EMPATES LIGA </th>
+                            <th scope="col">% NEXT GAME </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,6 +36,11 @@
                             <td>{{ evento.liga }}</td>
                             <td>{{ evento.conteoActual }}</td>
                             <td>{{ evento.maxConteo }}</td>
+                            <td>{{ evento.gamesFinished }}</td>
+                            <td>{{ evento.totDraw }}</td>
+                            <td *ngIf="evento.gamesFinished > 0">{{ (evento.totDraw / evento.gamesFinished)*100 | number : '1.2-2' }}</td>
+                            <td *ngIf="!(evento.gamesFinished > 0)">{{ 0 }}</td>
+                            <td> {{   evento.dateNextGame }} </td>
                         </tr>
                     </tbody>
                 </table>
@@ -48,6 +57,10 @@
                             <th scope="col">LIGA</th>
                             <th scope="col">CONTEO ACTUAL</th>
                             <th scope="col">MÁXIMO CONTEO</th>
+                            <th scope="col">JUEGOS REALIZADOS</th>
+                            <th scope="col">TOTAL EMPATES</th>
+                            <th scope="col">% EMPATES LIGA </th>   
+                            <th scope="col">% NEXT GAME </th>                         
                         </tr>
                     </thead>
                     <tbody>
@@ -55,7 +68,12 @@
                             <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.pais }}</td>
                             <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.liga }}</td>
                             <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.conteoActual }}</td>
-                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.maxConteo }}</td>                
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.maxConteo }}</td>      
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.gamesFinished }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.totDraw }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2) && e.gamesFinished > 0 ">{{ (e.totDraw / e.gamesFinished)*100 | number : '1.2-2' }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2) && !(e.gamesFinished > 0)">{{ 0 }}</td>          
+                            <td  *ngIf="e.conteoActual >= (e.maxConteo - 2)"> {{  e.dateNextGame }} </td>                            
                         </tr>
                     </tbody>
                 </table>

@@ -12,7 +12,10 @@ export interface HotCheck {
     liga: string;
     conteoActual: number;
     maxConteo: number;
+    gamesFinished: number;
+    totDraw: number;
     lstConteo: number[];
+    dateNextGame: string;
 }
 
 export interface Liga {
