@@ -11,7 +11,7 @@
     <div *ngIf="loading">
       <app-loading></app-loading>
     </div>
-    <div *ngIf="(juegosFinalizados.length > 0  && !loading) " class="main">
+    <div *ngIf="( (juegosFinalizados.length > 0 || juegosProximos.length > 0)  && !loading) " class="main">
       <br/>
       <div class="row">
         <h2> Liga: <strong class="text-primary"> {{ currentLegue }} </strong></h2>

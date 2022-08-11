@@ -37,6 +37,10 @@ export class BetsService {
      nombreForApi: 'spain/laliga-santander-2021-2022/'
    },
    {
+     nombrePublico: 'España',
+     nombreForApi: 'spain/laliga-santander/'
+   },
+   {
     nombrePublico: 'Colombia',
     nombreForApi: 'colombia/primera-a-clausura/'
   },
@@ -119,9 +123,7 @@ export class BetsService {
    {
     nombrePublico: 'Uzbekistan',
     nombreForApi: 'uzbekistan/superliga/'
-   }  
-
-   , 
+   }, 
    {
      nombrePublico: 'Italia',
      nombreForApi: 'italy/serie-a/'
@@ -140,7 +142,7 @@ export class BetsService {
    }, 
    {
      nombrePublico: 'Escocia',
-     nombreForApi: 'scotland-premiership/'
+     nombreForApi: 'scotland/scotland-premiership/'
    },
    {
     nombrePublico: 'Austria',
@@ -157,11 +159,106 @@ export class BetsService {
    {
     nombrePublico: 'Brasil',
     nombreForApi: 'brazil/serie-a/'
-   } 
-
+   },
+   {
+    nombrePublico: 'Estonia',
+    nombreForApi: 'estonia/meistriliiga/'
+   }, 
+   {
+     nombrePublico: 'Islas Faroe',
+     nombreForApi: 'faroe-islands/premier-league/'
+   },
+   {
+    nombrePublico: 'Hungria',
+    nombreForApi: 'hungary/nb-i/'
+   },
+   {
+    nombrePublico: 'Islandia',
+    nombreForApi: 'iceland/urvalsdeild/'
+   },
+   {
+    nombrePublico: 'Irlanda',
+    nombreForApi: 'ireland/premier-division/'
+   }, 
+   {
+     nombrePublico: 'Lituania',
+     nombreForApi: 'lithuania/a-lyga/'
+   },
+   {
+    nombrePublico: 'Noruega',
+    nombreForApi: 'norway/1-division/'
+   },
+   {
+    nombrePublico: 'Irlanda del Norte',
+    nombreForApi: 'northern-ireland/premiership/'
+   },
+   {
+    nombrePublico: 'Polonia',
+    nombreForApi: 'poland/ekstraklasa/'
+   }, 
+   {
+    nombrePublico: 'Eslovaquia',
+    nombreForApi: 'slovakia/fortuna-liga/'
+   },
+   {
+    nombrePublico: 'Eslovenia',
+    nombreForApi: 'slovenia/prva-liga/'
+   },
+   {
+    nombrePublico: 'Suecia',
+    nombreForApi: 'sweden/allsvenskan/'
+   }, 
+   {
+     nombrePublico: 'Suiza',
+     nombreForApi: 'switzerland/super-league/'
+   },
+   {
+    nombrePublico: 'Turquia',
+    nombreForApi: 'turkey/super-lig/'
+   },
+   {
+    nombrePublico: 'Gales',
+    nombreForApi: 'wales/cymru-premier/'
+   },
+   {
+    nombrePublico: 'Paraguay',
+    nombreForApi: 'paraguay/division-profesional-clausura/'
+   }, 
+   {
+     nombrePublico: 'Peru',
+     nombreForApi: 'peru/primera-division-clausura/'
+   },
+   {
+    nombrePublico: 'Uruguay',
+    nombreForApi: 'uruguay/primera-division-clausura/'
+   },
+   {
+    nombrePublico: 'Indonesia',
+    nombreForApi: 'indonesia/liga-1/'
+   },
+   {
+    nombrePublico: 'Singapur',
+    nombreForApi: 'singapore/sg-premier-league/'
+   }, 
+   {
+     nombrePublico: 'Korea del Sur',
+     nombreForApi: 'korea-republic/k-league-2/'
+   },
+   {
+    nombrePublico: 'Tailandia',
+    nombreForApi: 'thailand/thai-league/'
+   },
+   {
+    nombrePublico: 'Vietman',
+    nombreForApi: 'vietnam/v-league/'
+   },
+   {
+    nombrePublico: 'Sudáfrica',
+    nombreForApi: 'south-africa/premier-league/'
+   }
 ];
 
-//
+// sweden/allsvenskan/
 
   private servicioUrl: string = '/v1/api/app/stage/soccer/';
 

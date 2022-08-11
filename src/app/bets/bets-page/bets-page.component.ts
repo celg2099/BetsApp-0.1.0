@@ -20,9 +20,15 @@ export class BetsPageComponent  {
     return this.betService.resultados;
   }
 
+  get juegosProximos() {
+    return this.betService.proximos;
+  }
+
   get currentCount() {
     return this.betService.conteoActual;
   }
+
+
 
   get shortResult() {
 
