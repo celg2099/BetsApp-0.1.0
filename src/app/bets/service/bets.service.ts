@@ -255,7 +255,12 @@ export class BetsService {
    {
     nombrePublico: 'Sudáfrica',
     nombreForApi: 'south-africa/premier-league/'
+   },
+   {
+    nombrePublico: 'Bielorusia',
+    nombreForApi: 'belarus/premier-league/'
    }
+
 ];
 
 // sweden/allsvenskan/
