@@ -286,6 +286,17 @@ export class BetsService {
     nombrePublico: 'Camboya',
     nombreForApi: 'cambodia/c-league/'
    }
+
+   ,
+   {
+    nombrePublico: 'Macedonia',
+    nombreForApi: 'macedonia/1st-league/'
+   }
+   , 
+   {
+     nombrePublico: 'Tanzania',
+     nombreForApi: 'tanzania/premier-league/'
+   }
 ];
 
 // sweden/allsvenskan/

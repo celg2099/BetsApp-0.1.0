@@ -16,6 +16,7 @@ export interface HotCheck {
     totDraw: number;
     lstConteo: number[];
     dateNextGame: string;
+    percentDraw: number;
 }
 
 export interface Liga {

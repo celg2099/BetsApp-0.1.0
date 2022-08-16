@@ -15,6 +15,7 @@ maxConteo: 0,
 gamesFinished: 0,
 totDraw: 0,
 lstConteo: [],
+percentDraw: 0,
 dateNextGame: ""
 };
 

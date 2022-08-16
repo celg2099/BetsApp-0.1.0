@@ -54,9 +54,6 @@ export class HotListComponent{
               if(lstCont.length > 0 ){  mxConteo = Math.max(...lstCont.map(o => o)); };
 
               
-
-              
-
               var itmEvent: HotCheck = {
                 pais: e.nombrePublico,
                 liga: e.nombreForApi,
@@ -65,6 +62,7 @@ export class HotListComponent{
                 totDraw: totDraw,
                 gamesFinished: lstEventos.length,
                 lstConteo: [...lstCont],
+                percentDraw: (lstEventos.length > 0) ? (totDraw/lstEventos.length)*100 : 0,
                 dateNextGame: (lstNextGames.length > 0) ? this.getDateFormat(lstNextGames[0].Esd.toString()) : ""
               }
 
@@ -101,7 +99,7 @@ export class HotListComponent{
        case 3: {  this.hl.sort((a,b) => (b.maxConteo > a.maxConteo) ? 1 : ((a.maxConteo > b.maxConteo) ? -1 : 0)); break}
        case 4: {  this.hl.sort((a,b) => (b.gamesFinished > a.gamesFinished) ? 1 : ((a.gamesFinished > b.gamesFinished) ? -1 : 0)); break}
        case 5: {  this.hl.sort((a,b) => (b.totDraw > a.totDraw) ? 1 : ((a.totDraw > b.totDraw) ? -1 : 0)); break}
-      // case 6: {  this.hl.sort((a,b) => (a.liga > b.liga) ? 1 : ((b.liga > a.liga) ? -1 : 0)); break}
+       case 6: {  this.hl.sort((a,b) => (a.percentDraw > b.percentDraw) ? 1 : ((b.percentDraw > a.percentDraw) ? -1 : 0)); break}
        case 7: {  this.hl.sort((a,b) => (a.dateNextGame > b.dateNextGame) ? 1 : ((b.dateNextGame > a.dateNextGame) ? -1 : 0)); break}
        default: 
        this.hl.sort((a,b) => (a.liga > b.liga) ? 1 : ((b.liga > a.liga) ? -1 : 0));
