@@ -16,7 +16,7 @@ import { HotListItemComponent } from './hot-list-item/hot-list-item.component';
     MarcadoresComponent,
     NextGamesComponent,
     HotListComponent,
-    HotListItemComponent
+    HotListItemComponent,
   ],
   exports: [
     BetsPageComponent

@@ -72,8 +72,6 @@ export class HotListComponent{
   
             }
           } 
-
-
         }
       );
 
@@ -92,6 +90,25 @@ export class HotListComponent{
 
     return day + '/' + month + '/' + year + ' ' + hour + ':' + min + ':' + seg;
 
+  }
+
+  sortTable(column: number) {
+    
+    switch (column)
+    {
+       case 1: {  this.hl.sort((a,b) => (a.liga > b.liga) ? 1 : ((b.liga > a.liga) ? -1 : 0)); break}
+       case 2: {  this.hl.sort((a,b) => (b.conteoActual > a.conteoActual) ? 1 : ((a.conteoActual > b.conteoActual) ? -1 : 0)); break}
+       case 3: {  this.hl.sort((a,b) => (b.maxConteo > a.maxConteo) ? 1 : ((a.maxConteo > b.maxConteo) ? -1 : 0)); break}
+       case 4: {  this.hl.sort((a,b) => (b.gamesFinished > a.gamesFinished) ? 1 : ((a.gamesFinished > b.gamesFinished) ? -1 : 0)); break}
+       case 5: {  this.hl.sort((a,b) => (b.totDraw > a.totDraw) ? 1 : ((a.totDraw > b.totDraw) ? -1 : 0)); break}
+      // case 6: {  this.hl.sort((a,b) => (a.liga > b.liga) ? 1 : ((b.liga > a.liga) ? -1 : 0)); break}
+       case 7: {  this.hl.sort((a,b) => (a.dateNextGame > b.dateNextGame) ? 1 : ((b.dateNextGame > a.dateNextGame) ? -1 : 0)); break}
+       default: 
+       this.hl.sort((a,b) => (a.liga > b.liga) ? 1 : ((b.liga > a.liga) ? -1 : 0));
+    }
+
+
+       
   }
 
 }

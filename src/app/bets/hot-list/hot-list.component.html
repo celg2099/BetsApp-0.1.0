@@ -21,13 +21,13 @@
                     <thead>
                         <tr>
                             <th scope="col">PAIS</th>
-                            <th scope="col">LIGA</th>
-                            <th scope="col">CONTEO ACTUAL</th>
-                            <th scope="col">MÁXIMO CONTEO</th>
-                            <th scope="col">JUEGOS REALIZADOS</th>
-                            <th scope="col">TOTAL EMPATES</th>
-                            <th scope="col">% EMPATES LIGA </th>
-                            <th scope="col">% NEXT GAME </th>
+                            <th scope="col" (click)="sortTable(1)">LIGA</th>
+                            <th scope="col" (click)="sortTable(2)">CONTEO ACTUAL</th>
+                            <th scope="col" (click)="sortTable(3)">MÁXIMO CONTEO</th>
+                            <th scope="col" (click)="sortTable(4)">JUEGOS REALIZADOS</th>
+                            <th scope="col" (click)="sortTable(5)">TOTAL EMPATES</th>
+                            <th scope="col" (click)="sortTable(6)">% EMPATES LIGA </th>
+                            <th scope="col" (click)="sortTable(7)">% NEXT GAME </th>
                         </tr>
                     </thead>
                     <tbody>

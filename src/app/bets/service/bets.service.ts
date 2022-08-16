@@ -256,6 +256,39 @@ export class BetsService {
     nombrePublico: 'Sudáfrica',
     nombreForApi: 'south-africa/premier-league/'
    }
+
+   , 
+   {
+     nombrePublico: 'Mexico Expansión',
+     nombreForApi: 'mexico/liga-de-expansion-mx-apertura/'
+   },
+   {
+    nombrePublico: 'México Femenil',
+    nombreForApi: 'mexico/womens-liga-mx-apertura/'
+   },
+   {
+    nombrePublico: 'USA MLS',
+    nombreForApi: 'usa/major-league-soccer/'
+   },
+   {
+    nombrePublico: 'Venezuela',
+    nombreForApi: 'venezuela/primera-division/'
+   }
+
+   , 
+   {
+     nombrePublico: 'Bielorusia',
+     nombreForApi: 'belarus/premier-league/'
+   },
+   {
+    nombrePublico: 'Camboya',
+    nombreForApi: 'cambodia/c-league/'
+   },
+   {
+    nombrePublico: 'Singapur',
+    nombreForApi: 'singapore/sg-premier-league/'
+   }
+
 ];
 
 // sweden/allsvenskan/
