@@ -260,8 +260,6 @@ export class BetsService {
     nombrePublico: 'Bielorusia',
     nombreForApi: 'belarus/premier-league/'
    }
-
-<<<<<<< HEAD
    , 
    {
      nombrePublico: 'Mexico Expansión',
@@ -279,7 +277,6 @@ export class BetsService {
     nombrePublico: 'Venezuela',
     nombreForApi: 'venezuela/primera-division/'
    }
-
    , 
    {
      nombrePublico: 'Bielorusia',
@@ -288,14 +285,7 @@ export class BetsService {
    {
     nombrePublico: 'Camboya',
     nombreForApi: 'cambodia/c-league/'
-   },
-   {
-    nombrePublico: 'Singapur',
-    nombreForApi: 'singapore/sg-premier-league/'
    }
-
-=======
->>>>>>> c0e1786c8172fa5f4de0ed36aa3b3523345ab130
 ];
 
 // sweden/allsvenskan/
