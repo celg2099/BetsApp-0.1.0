@@ -255,8 +255,13 @@ export class BetsService {
    {
     nombrePublico: 'Sudáfrica',
     nombreForApi: 'south-africa/premier-league/'
+   },
+   {
+    nombrePublico: 'Bielorusia',
+    nombreForApi: 'belarus/premier-league/'
    }
 
+<<<<<<< HEAD
    , 
    {
      nombrePublico: 'Mexico Expansión',
@@ -289,6 +294,8 @@ export class BetsService {
     nombreForApi: 'singapore/sg-premier-league/'
    }
 
+=======
+>>>>>>> c0e1786c8172fa5f4de0ed36aa3b3523345ab130
 ];
 
 // sweden/allsvenskan/
