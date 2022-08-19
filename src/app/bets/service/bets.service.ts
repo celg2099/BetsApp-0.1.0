@@ -255,10 +255,6 @@ export class BetsService {
    {
     nombrePublico: 'Sudáfrica',
     nombreForApi: 'south-africa/premier-league/'
-   },
-   {
-    nombrePublico: 'Bielorusia',
-    nombreForApi: 'belarus/premier-league/'
    }
    , 
    {
@@ -285,9 +281,7 @@ export class BetsService {
    {
     nombrePublico: 'Camboya',
     nombreForApi: 'cambodia/c-league/'
-   }
-
-   ,
+   },
    {
     nombrePublico: 'Macedonia',
     nombreForApi: 'macedonia/1st-league/'
@@ -297,9 +291,50 @@ export class BetsService {
      nombrePublico: 'Tanzania',
      nombreForApi: 'tanzania/premier-league/'
    }
+   , 
+   {
+     nombrePublico: 'Zambia',
+     nombreForApi: 'zambia/super-league/'
+   }
+   , 
+   {
+     nombrePublico: 'Kazajistán',
+     nombreForApi: 'kazakhstan/premier-league/'
+   }
+   , 
+   {
+     nombrePublico: 'Albania',
+     nombreForApi: 'albania/kategoria-superiore/'
+   }
+   , 
+   {
+     nombrePublico: 'Finlandia - veikkausliiga',
+     nombreForApi: 'finland/veikkausliiga/'
+   },
+   {
+    nombrePublico: 'Finlandia - ykkonen',
+    nombreForApi: 'finland/ykkonen/'
+  },
+  {
+   nombrePublico: 'Luxemburgo',
+   nombreForApi: 'luxembourg/national-division/'
+  },
+  {
+   nombrePublico: 'Argentina - Women',
+   nombreForApi: 'argentina/womens-primera-division-a/'
+  },
+  {
+   nombrePublico: 'Australia - Tasmania',
+   nombreForApi: 'australia/tasmania/'
+  }
+
+
+  
+  
+   
 ];
 
-// sweden/allsvenskan/
+// 
 
   private servicioUrl: string = '/v1/api/app/stage/soccer/';
 
