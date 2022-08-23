@@ -85,6 +85,10 @@ export class BetsService {
      nombreForApi: 'denmark/superliga/'
    },
    {
+    nombrePublico: 'Dinamarca - 1 Div',
+    nombreForApi: 'denmark/1-division//'
+  },
+   {
     nombrePublico: 'Ecuador',
     nombreForApi: 'ecuador/serie-a-2-stage/'
    }, 
@@ -326,11 +330,31 @@ export class BetsService {
   {
    nombrePublico: 'Australia - Tasmania',
    nombreForApi: 'australia/tasmania/'
+  },
+  {
+   nombrePublico: 'Moldavia',
+   nombreForApi: 'moldova/national-division/'
+  },
+  {
+   nombrePublico: 'Georgia',
+   nombreForApi: 'georgia/erovnuli-liga/'
+  },
+  {
+   nombrePublico: 'Montenegro',
+   nombreForApi: 'montenegro/1-cfl/'
+  },
+  {
+   nombrePublico: 'Arabia Saudita',
+   nombreForApi: 'saudi-arabia/saudi-professional-league/'
+  },
+  {
+   nombrePublico: 'Kuwait',
+   nombreForApi: 'premier-league/fixtures/'
+  },
+  {
+   nombrePublico: 'Chipre',
+   nombreForApi: 'cyprus/1-division/fixtures/'
   }
-
-
-  
-  
    
 ];
 
@@ -347,6 +371,7 @@ export class BetsService {
 
   public ligaActual : string = "";
   public conteoActual : number = 0;
+  public totDraw : number = 0;
 
   public loading: boolean = false;
 
@@ -399,13 +424,14 @@ export class BetsService {
 
     var conteo = 0;
     var shortSum = 0;
+    this.totDraw = 0;
     this.Eventos.forEach((e) => {
 
       var itmEvent: Summary = this.getSummaryObj(e);
       shortSum = conteo;
       conteo = (itmEvent.TLGoals == itmEvent.TVGoals) ? 0 : conteo += 1;
 
-      if(itmEvent.TLGoals == itmEvent.TVGoals){ this.shortCount.push(shortSum);}
+      if(itmEvent.TLGoals == itmEvent.TVGoals){ this.shortCount.push(shortSum); this.totDraw +=1; }
 
       itmEvent.CurrentCount = conteo;
 

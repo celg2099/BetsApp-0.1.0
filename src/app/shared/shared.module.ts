@@ -4,6 +4,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SidebarBetsComponent } from './sidebar-bets/sidebar-bets.component';
 import { LoadingComponent } from './loading/loading.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
 
 
 
@@ -15,7 +16,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   ],
   imports: [
     CommonModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule
   ],
   exports: [
     SidebarComponent,

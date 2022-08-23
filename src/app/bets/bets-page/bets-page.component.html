@@ -1,9 +1,9 @@
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
     <a class="nav-link active" id="nav-resultados-tab" data-bs-toggle="tab" href="#nav-resultados" role="tab"
-      aria-controls="nav-resultados" aria-selected="true">Detalle Liga</a>
+      aria-controls="nav-resultados" aria-selected="true"> <mat-icon aria-hidden="false" fontIcon="folder_open"></mat-icon>  Detalle Liga</a>
     <a class="nav-link" id="nav-hotlist-tab" data-bs-toggle="tab" href="#nav-hotlist" role="tab"
-      aria-controls="nav-hotlist" aria-selected="false">Hot List</a>
+      aria-controls="nav-hotlist" aria-selected="false"><mat-icon aria-hidden="false" fontIcon="alarm"></mat-icon> Hot List</a>
   </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
@@ -12,27 +12,48 @@
       <app-loading></app-loading>
     </div>
     <div *ngIf="( (juegosFinalizados.length > 0 || juegosProximos.length > 0)  && !loading) " class="main">
-      <br/>
+      <br />
       <div class="row">
-        <h2> Liga: <strong class="text-primary"> {{ currentLegue }} </strong></h2>
+        <div class="col-8">
+          <h2> <strong class="text-primary">Liga: </strong> <strong>{{ getLiga(currentLegue) }}</strong> </h2>
+        </div>
+        <div class="col-4">
+          <h2 class="text-primary" matTooltip="Porcentaje De Empates"><strong>
+            <mat-icon  aria-hidden="false" fontIcon="pie_chart">
+            </mat-icon> {{ getTotDrawsPercent | number : '1.2-2'  }} %
+          </strong></h2>
+        </div>
       </div>
       <div class="row">
         <div class="col-4">
-          <h4> Conteo Actual: <strong>{{ currentCount }} </strong></h4>
+            <h2 class="text-success" matTooltip="Conteo ACTUAL"><strong>
+                <mat-icon  aria-hidden="false" fontIcon="functions">
+                </mat-icon> {{ currentCount }}
+              </strong></h2>
         </div>
-        <div class="col-8">
-          <h4 class="text-success"> Máximo Conteo: <strong> {{ shortResult }} </strong> </h4>
+        <div class="col-4">
+          <h2 class="text-success"  matTooltip="Máximo Conteo Registrado"><strong>
+            <mat-icon aria-hidden="false" fontIcon="today">
+            </mat-icon> {{ shortResult }}
+          </strong></h2>
         </div>
+        <div class="col-4">
+          <h2 class="text-success"  matTooltip="Total de Juegos Finalizados"><strong>
+            <mat-icon aria-hidden="false" fontIcon="assignment_turned_in">
+            </mat-icon> {{ juegosFinalizados.length }}
+          </strong></h2>
+        </div>
+
       </div>
       <hr />
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">
           <a class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" href="#nav-home" role="tab"
-            aria-controls="nav-home" aria-selected="true">Resultados</a>
+            aria-controls="nav-home" aria-selected="true"><mat-icon aria-hidden="false" fontIcon="assignment"></mat-icon> Resultados</a>
           <a class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" href="#nav-profile" role="tab"
-            aria-controls="nav-profile" aria-selected="false">Proximos Juegos</a>
+            aria-controls="nav-profile" aria-selected="false"><mat-icon aria-hidden="false" fontIcon="calendar_today"></mat-icon> Proximos Juegos</a>
           <a class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" href="#nav-contact" role="tab"
-            aria-controls="nav-contact" aria-selected="false">Simulación</a>
+            aria-controls="nav-contact" aria-selected="false"> Simulación</a>
         </div>
       </nav>
       <div class="tab-content" id="nav-tabContent">
@@ -50,6 +71,6 @@
     </div>
   </div>
   <div class="tab-pane fade" id="nav-hotlist" role="tabpanel" aria-labelledby="nav-hotlist-tab">
-     <app-hot-list></app-hot-list>
+    <app-hot-list></app-hot-list>
   </div>
 </div>

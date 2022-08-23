@@ -9,6 +9,8 @@ import { SharedModule } from './shared/shared.module';
 import { BetsModule } from './bets/bets.module';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -23,7 +25,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     SharedModule,
     GifsModule,
     BetsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatIconModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

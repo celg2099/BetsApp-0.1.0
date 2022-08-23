@@ -90,6 +90,12 @@ export class HotListComponent{
 
   }
 
+  getLiga( strComplete: string): string {
+
+    var dashPosition = strComplete.indexOf('/');
+    return strComplete.substring(dashPosition+1, strComplete.length-1);
+  }
+
   sortTable(column: number) {
     
     switch (column)

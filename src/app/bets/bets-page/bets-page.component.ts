@@ -28,6 +28,20 @@ export class BetsPageComponent  {
     return this.betService.conteoActual;
   }
 
+  get getTotDrawsPercent(){
+       if(this.betService.totDraw > 0 && this.betService.resultados.length > 0){
+             return (this.betService.totDraw/this.betService.resultados.length)*100;
+       }
+       else {
+        return 0;
+       }
+  }
+
+  getLiga( strComplete: string): string {
+
+    var dashPosition = strComplete.indexOf('/');
+    return strComplete.substring(dashPosition+1, strComplete.length-1);
+  }
 
 
   get shortResult() {

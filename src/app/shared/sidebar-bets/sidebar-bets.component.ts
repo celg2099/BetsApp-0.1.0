@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { LigaHomologada } from 'src/app/bets/interface/results.interface';
+import { Component } from '@angular/core';
 import { BetsService } from '../../bets/service/bets.service';
+
 
 @Component({
   selector: 'app-sidebar-bets',
