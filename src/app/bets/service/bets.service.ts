@@ -349,16 +349,53 @@ export class BetsService {
   },
   {
    nombrePublico: 'Kuwait',
-   nombreForApi: 'premier-league/fixtures/'
+   nombreForApi: 'kuwait/premier-league/'
   },
   {
    nombrePublico: 'Chipre',
-   nombreForApi: 'cyprus/1-division/fixtures/'
+   nombreForApi: 'cyprus/1-division/'
+  },
+  {
+   nombrePublico: 'Ucrania',
+   nombreForApi: 'ukraine/premier-league/'
+  },
+  {
+   nombrePublico: 'Argentina 1er B Metro.',
+   nombreForApi: 'argentina/primera-b-metropolitana-clausura/'
+  },
+  {
+   nombrePublico: 'Argentina Nacional B',
+   nombreForApi: 'argentina/primera-nacional/'
+  },
+  {
+   nombrePublico: 'Brasil Serie B',
+   nombreForApi: 'brazil/serie-b/'
+  },
+  {
+   nombrePublico: 'Chile Primera B',
+   nombreForApi: 'chile/primera-b/'
+  },
+  {
+   nombrePublico: 'Colombia Primera B',
+   nombreForApi: 'colombia/primera-b-clausura/'
+  },
+  {
+   nombrePublico: 'Ecuador Primera B',
+   nombreForApi: 'ecuador/liga-pro-serie-b/'
+  },
+  {
+   nombrePublico: 'Inglaterra Liga 1',
+   nombreForApi: 'england/league-1/'
+  },
+  {
+   nombrePublico: 'Birmania',
+   nombreForApi: 'myanmar/national-league/'
   }
+   
    
 ];
 
-// 
+// myanmar/national-league/
 
   private servicioUrl: string = '/v1/api/app/stage/soccer/';
 
