@@ -34,7 +34,8 @@ export class BetsService {
    ,
    {
      nombrePublico: 'España 21/22',
-     nombreForApi: 'spain/laliga-santander-2021-2022/'
+     nombreForApi: 'spain/laliga-santander-2021-2022/',
+     historico: 1
    },
    {
      nombrePublico: 'España',
@@ -86,7 +87,7 @@ export class BetsService {
    },
    {
     nombrePublico: 'Dinamarca - 1 Div',
-    nombreForApi: 'denmark/1-division//'
+    nombreForApi: 'denmark/1-division/'
   },
    {
     nombrePublico: 'Ecuador',
@@ -390,8 +391,25 @@ export class BetsService {
   {
    nombrePublico: 'Birmania',
    nombreForApi: 'myanmar/national-league/'
+  },
+  {
+   nombrePublico: 'Inglaterra Liga 2',
+   nombreForApi: 'england/league-2/'
+  }, 
+  {
+    nombrePublico: 'Italia Serie B',
+    nombreForApi: 'italy/serie-b/'
+  }, 
+  {
+    nombrePublico: 'España la Liga 2',
+    nombreForApi: 'spain/laliga-smartbank/'
   }
-   
+  , 
+  {
+    nombrePublico: 'España la Liga2 2021-2022',
+    nombreForApi: 'spain/laliga-smartbank-2021-2022/',
+    historico: 1
+  }
    
 ];
 

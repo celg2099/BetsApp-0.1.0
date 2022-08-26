@@ -3,7 +3,7 @@
     <a class="nav-link active" id="nav-resultados-tab" data-bs-toggle="tab" href="#nav-resultados" role="tab"
       aria-controls="nav-resultados" aria-selected="true"> <mat-icon aria-hidden="false" fontIcon="folder_open"></mat-icon>  Detalle Liga</a>
     <a class="nav-link" id="nav-hotlist-tab" data-bs-toggle="tab" href="#nav-hotlist" role="tab"
-      aria-controls="nav-hotlist" aria-selected="false"><mat-icon aria-hidden="false" fontIcon="alarm"></mat-icon> Hot List</a>
+      aria-controls="nav-hotlist" aria-selected="false"><mat-icon aria-hidden="false" fontIcon="local_fire_department"></mat-icon> Hot List</a>
   </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
@@ -43,8 +43,22 @@
             </mat-icon> {{ juegosFinalizados.length }}
           </strong></h2>
         </div>
-
       </div>
+      <div class="row">
+        <div class="col-8">
+          <h2 class="text-primary"  matTooltip="Próximo Juego"><strong>
+            <mat-icon aria-hidden="false" fontIcon="content_paste_go">
+            </mat-icon> {{ nextGame | date: 'dd/MM/yyyy HH:mm:ss' }}
+          </strong></h2>
+        </div>
+        <div class="col-4">
+          <h2 class="text-primary"  matTooltip="moda"><strong>
+            <mat-icon aria-hidden="false" fontIcon="leaderboard">
+            </mat-icon> {{ getModa }}
+          </strong></h2>
+        </div>
+      </div>
+
       <hr />
       <nav>
         <div class="nav nav-tabs" id="nav-tab" role="tablist">

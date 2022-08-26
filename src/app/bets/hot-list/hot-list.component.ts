@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BetsService } from '../service/bets.service';
 import { Eps, HotCheck, LigaHomologada } from '../interface/results.interface';
+import { isNgTemplate } from '@angular/compiler';
 
 @Component({
   selector: 'app-hot-list',
@@ -17,7 +18,9 @@ export class HotListComponent{
 
     this.hl = [];
 
-    var ligasOrdenadasByName =  this.betService.ligas;
+    var ligasOrdenadasByName =  [...this.betService.ligas];
+    ligasOrdenadasByName = ligasOrdenadasByName.filter( itm => itm.historico != 0);
+
     ligasOrdenadasByName =  ligasOrdenadasByName.sort((a,b) => (a.nombrePublico > b.nombrePublico) ? 1 : ((b.nombrePublico > a.nombrePublico) ? -1 : 0));
 
 

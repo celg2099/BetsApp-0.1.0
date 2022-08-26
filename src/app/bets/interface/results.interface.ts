@@ -26,6 +26,12 @@ export interface Liga {
 export interface LigaHomologada {
     nombrePublico: string;
     nombreForApi: string;
+    historico?: number;
+}
+
+export interface ListStatics {
+    valor: number;
+    info: number;
 }
 
 export interface Summary {
