@@ -25,22 +25,28 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-4">
+        <div class="col-3">
             <h2 class="text-success" matTooltip="Conteo ACTUAL"><strong>
                 <mat-icon  aria-hidden="false" fontIcon="functions">
                 </mat-icon> {{ currentCount }}
               </strong></h2>
         </div>
-        <div class="col-4">
+        <div class="col-3">
           <h2 class="text-success"  matTooltip="Máximo Conteo Registrado"><strong>
             <mat-icon aria-hidden="false" fontIcon="today">
             </mat-icon> {{ shortResult }}
           </strong></h2>
         </div>
-        <div class="col-4">
+        <div class="col-3">
           <h2 class="text-success"  matTooltip="Total de Juegos Finalizados"><strong>
             <mat-icon aria-hidden="false" fontIcon="assignment_turned_in">
             </mat-icon> {{ juegosFinalizados.length }}
+          </strong></h2>
+        </div>
+        <div class="col-3">
+          <h2 class="text-primary"  matTooltip="moda"><strong>
+            <mat-icon aria-hidden="false" fontIcon="leaderboard">
+            </mat-icon> {{ getModa }}
           </strong></h2>
         </div>
       </div>
@@ -52,10 +58,7 @@
           </strong></h2>
         </div>
         <div class="col-4">
-          <h2 class="text-primary"  matTooltip="moda"><strong>
-            <mat-icon aria-hidden="false" fontIcon="leaderboard">
-            </mat-icon> {{ getModa }}
-          </strong></h2>
+
         </div>
       </div>
 
