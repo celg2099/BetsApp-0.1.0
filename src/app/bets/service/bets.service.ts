@@ -409,6 +409,11 @@ export class BetsService {
     nombrePublico: 'España la Liga2 2021-2022',
     nombreForApi: 'spain/laliga-smartbank-2021-2022/',
     historico: 1
+  } , 
+  {
+    nombrePublico: 'Hong Kong',
+    nombreForApi: 'hong-kong/premier-league/',
+    historico: 1
   }
    
 ];
