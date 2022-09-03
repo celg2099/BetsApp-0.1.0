@@ -449,6 +449,7 @@ export class BetsService {
 
     this.http.get<Liga>(`${this.servicioUrl}${query}-6`, { params })
       .subscribe((resp) => {
+        console.log(resp);
         this.Eventos = [];
         this.resultados = [];
         this.proximos = [];
@@ -535,8 +536,8 @@ export class BetsService {
     var itmEvent: Summary = {
       TLName: e.T1[0].Nm, // Team Local Name
       TVName: e.T2[0].Nm, // Team Visit Name
-      TLGoals: Number(e.Tr1OR), // Team Local Goals
-      TVGoals: Number(e.Tr2OR), // Team Visit Goals
+      TLGoals: Number(e.Tr1), // Team Local Goals
+      TVGoals: Number(e.Tr2), // Team Visit Goals
       CurrentCount: -1, // Partidos sin empate hasta nuevo empate
       Date: new Date(this.getDateFormat(e.Esd.toString()))
     }

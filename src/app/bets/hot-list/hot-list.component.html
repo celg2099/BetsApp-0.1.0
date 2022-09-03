@@ -32,7 +32,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let evento of hl">
-                            <td>{{ evento.pais }}</td>
+                            <td  (click)="setInfoLeague(evento)">{{ evento.pais }}</td>
                             <td>{{ getLiga(evento.liga) }}</td>
                             <td>{{ evento.conteoActual }}</td>
                             <td>{{ evento.maxConteo }}</td>
@@ -64,7 +64,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let e of hl">        
-                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.pais }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)"  (click)="setInfoLeague(e)">{{ e.pais }}</td>
                             <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ getLiga(e.liga)  }}</td>
                             <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.conteoActual }}</td>
                             <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.maxConteo }}</td>      

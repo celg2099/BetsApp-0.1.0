@@ -47,9 +47,9 @@ export class HotListComponent{
               lstEventos.forEach((itm) => {
 
                 shortSum = conteo;
-                conteo = (Number(itm.Tr1OR) == Number(itm.Tr2OR)) ? 0 : conteo += 1;
+                conteo = (Number(itm.Tr1) == Number(itm.Tr2)) ? 0 : conteo += 1;
           
-                if(Number(itm.Tr1OR) == Number(itm.Tr2OR)){ lstCont.push(shortSum); totDraw += 1; }
+                if(Number(itm.Tr1) == Number(itm.Tr2)){ lstCont.push(shortSum); totDraw += 1; }
           
               });
 
@@ -99,6 +99,16 @@ export class HotListComponent{
     return strComplete.substring(dashPosition+1, strComplete.length-1);
   }
 
+  setInfoLeague( evento: HotCheck){
+
+    console.log(evento);
+    this.betService.loading = true;
+    this.betService.buscarResultados(evento.liga);
+
+  }
+
+
+
   sortTable(column: number) {
     
     switch (column)
@@ -109,13 +119,37 @@ export class HotListComponent{
        case 4: {  this.hl.sort((a,b) => (b.gamesFinished > a.gamesFinished) ? 1 : ((a.gamesFinished > b.gamesFinished) ? -1 : 0)); break}
        case 5: {  this.hl.sort((a,b) => (b.totDraw > a.totDraw) ? 1 : ((a.totDraw > b.totDraw) ? -1 : 0)); break}
        case 6: {  this.hl.sort((a,b) => (a.percentDraw > b.percentDraw) ? 1 : ((b.percentDraw > a.percentDraw) ? -1 : 0)); break}
-       case 7: {  this.hl.sort((a,b) => (a.dateNextGame > b.dateNextGame) ? 1 : ((b.dateNextGame > a.dateNextGame) ? -1 : 0)); break}
+      //  case 7: {  this.hl.sort((a,b) => (a.dateNextGame > b.dateNextGame) ? 1 : ((b.dateNextGame > a.dateNextGame) ? -1 : 0)); break}
+      case 7: {  this.hl.sort((a,b) => this.compareDateString(a.dateNextGame, b.dateNextGame) ? 1 : ((this.compareDateString(b.dateNextGame, a.dateNextGame)) ? -1 : 0)); break}
        default: 
        this.hl.sort((a,b) => (a.liga > b.liga) ? 1 : ((b.liga > a.liga) ? -1 : 0));
-    }
-
-
-       
+    }       
   }
+
+
+   compareDateString( str1: string, str2: string):boolean {
+     
+        var a = this.getDateFromString(str1);
+        var b = this.getDateFromString(str2);
+
+       var date1 = new Date(a);
+       var date2 = new Date(b);
+
+       return date1 > date2;
+     
+   }
+
+   getDateFromString( str1: string ): Date {
+    var dia = str1.substring(0,2);
+    var mes = str1.substring(3,5);
+    var year = str1.substring(6,10);
+    var hour = str1.substring(11,13);
+    var minute = str1.substring(14,16);
+    var seconds = str1.substring(17);
+
+    return new Date(Number(year),Number(mes)-1,Number(dia), Number(hour), Number(minute), Number(seconds));
+
+   }
+
 
 }
