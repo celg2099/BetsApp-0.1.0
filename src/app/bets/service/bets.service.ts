@@ -316,10 +316,10 @@ export class BetsService {
      nombrePublico: 'Finlandia - veikkausliiga',
      nombreForApi: 'finland/veikkausliiga/'
    },
-   {
-    nombrePublico: 'Finlandia - ykkonen',
-    nombreForApi: 'finland/ykkonen/'
-  },
+  //  {
+  //   nombrePublico: 'Finlandia - ykkonen',
+  //   nombreForApi: 'finland/ykkonen/'
+  // },
   {
    nombrePublico: 'Luxemburgo',
    nombreForApi: 'luxembourg/national-division/'
@@ -408,6 +408,36 @@ export class BetsService {
   {
     nombrePublico: 'España la Liga2 2021-2022',
     nombreForApi: 'spain/laliga-smartbank-2021-2022/',
+    historico: 1
+  } , 
+  {
+    nombrePublico: 'Hong Kong',
+    nombreForApi: 'hong-kong/premier-league/',
+    historico: 1
+  } , 
+  {
+    nombrePublico: 'Barein',
+    nombreForApi: 'bahrain/premier-league/',
+    historico: 1
+  }, 
+  {
+    nombrePublico: 'Emiratos Arabes Unidos',
+    nombreForApi: 'united-arab-emirates/uae-league/',
+    historico: 1
+  }, 
+  {
+    nombrePublico: 'Angola',
+    nombreForApi: 'angola/girabola/',
+    historico: 1
+  }, 
+  {
+    nombrePublico: 'Marruecos',
+    nombreForApi: 'morocco/botola-pro/',
+    historico: 1
+  }, 
+  {
+    nombrePublico: 'Zambia',
+    nombreForApi: 'zambia/super-league/',
     historico: 1
   }
   , 
