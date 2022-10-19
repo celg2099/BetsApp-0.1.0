@@ -414,6 +414,31 @@ export class BetsService {
     nombrePublico: 'Hong Kong',
     nombreForApi: 'hong-kong/premier-league/',
     historico: 1
+  } , 
+  {
+    nombrePublico: 'Barein',
+    nombreForApi: 'bahrain/premier-league/',
+    historico: 1
+  }, 
+  {
+    nombrePublico: 'Emiratos Arabes Unidos',
+    nombreForApi: 'united-arab-emirates/uae-league/',
+    historico: 1
+  }, 
+  {
+    nombrePublico: 'Angola',
+    nombreForApi: 'angola/girabola/',
+    historico: 1
+  }, 
+  {
+    nombrePublico: 'Marruecos',
+    nombreForApi: 'morocco/botola-pro/',
+    historico: 1
+  }, 
+  {
+    nombrePublico: 'Zambia',
+    nombreForApi: 'zambia/super-league/',
+    historico: 1
   }
    
 ];
