@@ -316,10 +316,10 @@ export class BetsService {
      nombrePublico: 'Finlandia - veikkausliiga',
      nombreForApi: 'finland/veikkausliiga/'
    },
-   {
-    nombrePublico: 'Finlandia - ykkonen',
-    nombreForApi: 'finland/ykkonen/'
-  },
+  //  {
+  //   nombrePublico: 'Finlandia - ykkonen',
+  //   nombreForApi: 'finland/ykkonen/'
+  // },
   {
    nombrePublico: 'Luxemburgo',
    nombreForApi: 'luxembourg/national-division/'
