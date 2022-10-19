@@ -410,6 +410,13 @@ export class BetsService {
     nombreForApi: 'spain/laliga-smartbank-2021-2022/',
     historico: 1
   }
+  , 
+  {
+    nombrePublico: 'México U20',
+    nombreForApi: 'mexico/liga-mx-u20-apertura/',
+    historico: 1
+  }
+
    
 ];
 
