@@ -17,7 +17,9 @@ export class MarcadoresComponent  {
     return this.betService.shortCount;
   }
 
-
+  get shortResultReverse() {
+    return this.betService.shortCount.reverse();
+  }
   constructor(private betService : BetsService) {
 
   }  
