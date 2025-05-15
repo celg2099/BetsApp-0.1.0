@@ -5,5 +5,12 @@
         "changeOrigin": true,
         "logLevel": "debug",
         "pathRewrite": {"^/v1/api" : "https://prod-public-api.livescore.com/v1/api"}
+    },
+    "/en/football/*":{
+        "target":"https://www.livescore.com",
+        "secure": false,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite": {"^/en/football" : "http://www.livescore.com/en/football"}
     }
 }

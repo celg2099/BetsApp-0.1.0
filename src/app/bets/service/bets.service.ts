@@ -1,7 +1,11 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
+import { map } from 'rxjs/operators';
 import { Summary, Liga, Eps, Event, LigaHomologada, HotCheck } from '../interface/results.interface';
+import { firstValueFrom } from 'rxjs';
+
+
 
 
 @Injectable({
@@ -476,7 +480,7 @@ export class BetsService {
     // },
     {
       nombrePublico: 'Holanda',
-      nombreForApi: 'holland/eredivisie/'
+      nombreForApi: 'netherlands/eredivisie/'
     },
     // {
     //   nombrePublico: 'Holanda 2019',
@@ -652,7 +656,7 @@ export class BetsService {
     },
     {
       nombrePublico: 'Irlanda',
-      nombreForApi: 'ireland/premier-division/'
+      nombreForApi: 'ireland/league-of-ireland-premier-division/'
     },
     {
       nombrePublico: 'Lituania',
@@ -693,7 +697,27 @@ export class BetsService {
     {
       nombrePublico: 'Polonia',
       nombreForApi: 'poland/ekstraklasa/'
+    },
+    {
+      nombrePublico: '1. Polonia L1',
+      nombreForApi: 'poland/i-liga/'
     }, 
+    // {
+    //   nombrePublico: '1. Polonia L1 2020',
+    //   nombreForApi: 'poland/i-liga-2020-2021/'
+    // }, 
+    // {
+    //   nombrePublico: '1. Polonia L1 2021',
+    //   nombreForApi: 'poland/i-liga-2021-2022/'
+    // }, 
+    // {
+    //   nombrePublico: '1. Polonia L1 2022',
+    //   nombreForApi: 'poland/i-liga-2022-2023/'
+    // }, 
+    // {
+    //   nombrePublico: '1. Polonia L1 2023',
+    //   nombreForApi: 'poland/i-liga-2023-2024'
+    // },  
     {
       nombrePublico: 'Eslovaquia',
       nombreForApi: 'slovakia/fortuna-liga/'
@@ -752,7 +776,7 @@ export class BetsService {
     },  
     {
       nombrePublico: 'Turquia',
-      nombreForApi: 'turkey/super-lig/'
+      nombreForApi: 'turkiye/super-lig'
     },  
     {
       nombrePublico: 'Turquia L1',
@@ -812,7 +836,7 @@ export class BetsService {
     // },
     {
       nombrePublico: 'Korea del Sur',
-      nombreForApi: 'korea-republic/k-league-1/'
+      nombreForApi: 'republic-of-korea/k-league-1'
     },
     {
       nombrePublico: 'Tailandia',
@@ -852,7 +876,7 @@ export class BetsService {
     },   
     {
       nombrePublico: 'México Femenil',
-      nombreForApi: 'mexico/womens-liga-mx-clausura/'
+      nombreForApi: 'mexico/liga-mx-clausura-women/'
     },
 {
       nombrePublico: 'USA MLS',
@@ -891,8 +915,8 @@ export class BetsService {
       nombreForApi: 'cambodia/c-league/'
     },
     {
-      nombrePublico: 'Macedonia',
-      nombreForApi: 'macedonia/1st-league/'
+      nombrePublico: 'Macedonia del Norte',
+      nombreForApi: 'north-macedonia/1st-league'
     }
     ,
     {
@@ -1063,10 +1087,10 @@ export class BetsService {
     //   nombrePublico: 'Australia - Tasmania - 2024',
     //   nombreForApi: 'australia/tasmania-2024/'
     // },
-    // {
-    //   nombrePublico: 'Australia',
-    //   nombreForApi: 'australia/a-league/'
-    // },
+     {
+       nombrePublico: 'Australia',
+       nombreForApi: 'australia/a-league/'
+     },
     // {
     //   nombrePublico: '1. Australia 2020',
     //   nombreForApi: 'australia/a-league-2020-2021/'
@@ -1328,67 +1352,117 @@ export class BetsService {
 
   // myanmar/national-league/
 
-  private servicioUrl: string = '/v1/api/app/stage/soccer/';
+   private url = '/en/football/';
 
-  public resultados: Summary[] = [];
-  public proximos: Summary[] = [];
+   private servicioUrl: string = '/v1/api/app/stage/soccer/';
 
-  public shortCount: number[] = [];
+   public resultados: Summary[] = [];
+   public proximos: Summary[] = [];
 
-  public Eventos: Event[] = [];
+   public shortCount: number[] = [];
 
-  public ligaActual: string = "";
-  public conteoActual: number = 0;
-  public totDraw: number = 0;
+   public Eventos: Event[] = [];
 
-  public loading: boolean = false;
+   public ligaActual: string = "";
+   public conteoActual: number = 0;
+   public totDraw: number = 0;
 
-  public checkList: HotCheck[] = [];
+   public loading: boolean = false;
 
+   public checkList: HotCheck[] = [];
+ 
 
+   constructor(private http: HttpClient) {
+   }
 
-  constructor(private http: HttpClient) {
-  }
+   buscarResultados(query: string = '') {
 
-  buscarResultados(query: string = '') {
+         var urlArmed = this.url + query + '/results/'
 
+         this.http.get(urlArmed, {  responseType: 'text' })
+         .subscribe((resp) => {
 
+          var inicioString = resp.indexOf('"initialStageData"');
+          var finString = resp.indexOf('],"stage":{');
+          console.log(inicioString);
+          console.log(finString);
+
+          var textoExtraido: string = resp.substring(inicioString+19, finString+1)+"}";
+
+          console.log(textoExtraido.length);
+
+          textoExtraido = textoExtraido.replace('stages','Stages');
+
+          const liga: Liga = JSON.parse(textoExtraido);
+
+          console.log(liga);
+
+          this.Eventos = [];
+          this.resultados = [];
+          this.proximos = [];
+          this.shortCount = [];
+
+          if (liga.Stages.length > 0) {
+            if (liga.Stages[0].Events) {
+
+              this.Eventos = liga.Stages[0].Events;
+              this.setProximosEventos([...this.Eventos]);
+              this.setResultados(query);
+            }
+          }
+        },
+        (error) => {
+          console.error('Ocurrió un error:', error);
+          this.loading = false;
+        }
+    
+      );
+  
     
 
-    const params = new HttpParams()
-      .set('MD', '1');
+      // const params = new HttpParams()
+      //   .set('MD', '1');
 
-    this.http.get<Liga>(`${this.servicioUrl}${query}-6`, { params })
-      .subscribe((resp) => {
-        console.log(resp);
-        this.Eventos = [];
-        this.resultados = [];
-        this.proximos = [];
-        this.shortCount = [];
+      // this.http.get<Liga>(`${this.servicioUrl}${query}-6`, { params })
+      //   .subscribe((resp) => {
+      //     console.log(resp);
+      //     this.Eventos = [];
+      //     this.resultados = [];
+      //     this.proximos = [];
+      //     this.shortCount = [];
 
-        if (resp.Stages.length > 0) {
-          if (resp.Stages[0].Events) {
+      //     if (resp.Stages.length > 0) {
+      //       if (resp.Stages[0].Events) {
 
-            this.Eventos = resp.Stages[0].Events;
+      //         this.Eventos = resp.Stages[0].Events;
 
-            this.setProximosEventos([...this.Eventos]);
-            this.setResultados(query);
+      //         this.setProximosEventos([...this.Eventos]);
+      //         this.setResultados(query);
 
-          }
-        }
-      });
+      //       }
+      //     }
+      //   });
+
+
   }
 
   public getEventosByLiga(liga: string) {
-
-    const params = new HttpParams()
-      .set('MD', '1');
-
-    const url = `${this.servicioUrl}${liga}-6`;
-    return this.http.get<Liga>(url, { params });
-
+     
+     return this.http.get<string>(liga);
 
   }
+
+
+
+  //  public getEventosByLiga(liga: string) {
+
+  //    const params = new HttpParams()
+  //      .set('MD', '1');
+
+  //    const url = `${this.servicioUrl}${liga}-6`;
+  //    return this.http.get<Liga>(url, { params });
+
+  //  }
 
   setResultados(q: string) {
 
@@ -1444,13 +1518,16 @@ export class BetsService {
 
   getSummaryObj(e: Event): Summary {
 
+    var x = new Date(this.getDateFormat(e.Esd.toString()));
+    var y = new Date(x.getTime() - 6 * 60 * 60 * 1000);
+
     var itmEvent: Summary = {
       TLName: e.T1[0].Nm, // Team Local Name
       TVName: e.T2[0].Nm, // Team Visit Name
       TLGoals: Number(e.Tr1), // Team Local Goals
       TVGoals: Number(e.Tr2), // Team Visit Goals
       CurrentCount: -1, // Partidos sin empate hasta nuevo empate
-      Date: new Date(this.getDateFormat(e.Esd.toString()))
+      Date: new Date(y)
     }
 
     return itmEvent;

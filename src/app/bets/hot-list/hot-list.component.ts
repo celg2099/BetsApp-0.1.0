@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { BetsService } from '../service/bets.service';
-import { Eps, HotCheck, LigaHomologada } from '../interface/results.interface';
+import { Eps, HotCheck, LigaHomologada, Liga } from '../interface/results.interface';
 import { isNgTemplate } from '@angular/compiler';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-hot-list',
@@ -11,7 +12,7 @@ export class HotListComponent{
 
   public hl : HotCheck[] = [];
 
-  constructor(private betService : BetsService) { }
+  constructor(private betService : BetsService, private http: HttpClient) { }
 
 
   generarLista() {
@@ -24,22 +25,35 @@ export class HotListComponent{
     ligasOrdenadasByName =  ligasOrdenadasByName.sort((a,b) => (a.nombrePublico > b.nombrePublico) ? 1 : ((b.nombrePublico > a.nombrePublico) ? -1 : 0));
 
 
+    var url = '/en/football/';
+
     ligasOrdenadasByName.forEach( e => {
 
-      this.betService.getEventosByLiga(e.nombreForApi).subscribe(
+      var urlArmed = url + e.nombreForApi + '/results/'    
+      this.http.get(urlArmed, {  responseType: 'text' }).subscribe(
         resp => {
 
-          if (resp.Stages.length > 0) {
-            if (resp.Stages[0].Events) {
+        var inicioString = resp.indexOf('"initialStageData"');
+        var finString = resp.indexOf('],"stage":{');
+
+        var textoExtraido: string = resp.substring(inicioString+19, finString+1)+"}";
+
+        textoExtraido = textoExtraido.replace('stages','Stages');
+
+        const liga: Liga = JSON.parse(textoExtraido);
+
+          if (liga.Stages.length > 0) {
+            if (liga.Stages[0].Events) {
               var conteo = 0;
               var shortSum = 0;
               var mxConteo = 0;
               var totDraw = 0;
               var lstCont : number[] =  [];
 
-              var lstEventos = resp.Stages[0].Events;
+              var lstEventos = liga.Stages[0].Events;
 
               var lstNextGames = [...lstEventos];
+
               lstNextGames = lstNextGames.filter(e => (e.Eps == Eps.NS));
 
               lstEventos = lstEventos.filter(e => (e.Eps == Eps.Ft));
@@ -55,7 +69,6 @@ export class HotListComponent{
 
               lstCont.push(conteo);
               if(lstCont.length > 0 ){  mxConteo = Math.max(...lstCont.map(o => o)); };
-
               
               var itmEvent: HotCheck = {
                 pais: e.nombrePublico,
@@ -66,7 +79,7 @@ export class HotListComponent{
                 gamesFinished: lstEventos.length,
                 lstConteo: [...lstCont],
                 percentDraw: (lstEventos.length > 0) ? (totDraw/lstEventos.length)*100 : 0,
-                dateNextGame: (lstNextGames.length > 0) ? this.getDateFormat(lstNextGames[0].Esd.toString()) : ""
+                dateNextGame: (lstNextGames.length > 0) ? this.getDateMinusHour(lstNextGames[0].Esd.toString()) : ""
               }
 
               this.hl.push(itmEvent);
@@ -80,6 +93,7 @@ export class HotListComponent{
   }
 
 
+
   getDateFormat(dateStr: string): string {
 
     var year = dateStr.toString().substring(0, 4);
@@ -89,7 +103,16 @@ export class HotListComponent{
     var min = dateStr.toString().substring(10, 12);
     var seg = dateStr.toString().substring(12, 14);
 
-    return day + '/' + month + '/' + year + ' ' + hour + ':' + min + ':' + seg;
+    return month + '/' + day + '/' + year + ' ' + hour + ':' + min + ':' + seg;
+
+  }
+
+  getDateMinusHour(dateStr: string): string {
+    var x = new Date(this.getDateFormat(dateStr));
+    var y = new Date(x.getTime() - 6 * 60 * 60 * 1000);
+    console.log(y.toString());
+
+   return y.getDate().toString().padStart(2,'0') + '/' + (y.getMonth() + 1).toString().padStart(2,'0') + '/' + y.getFullYear().toString() + ' ' + y.getHours().toString().padStart(2,'0') + ':' + y.getMinutes().toString().padStart(2,'0') + ':' + y.getSeconds().toString().padStart(2,'0');
 
   }
 
