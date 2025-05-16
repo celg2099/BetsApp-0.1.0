@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { map } from 'rxjs/operators';
 import { Summary, Liga, Eps, Event, LigaHomologada, HotCheck } from '../interface/results.interface';
 import { firstValueFrom } from 'rxjs';
+import { Detail } from '../interface/detail.interface';
 
 
 
@@ -94,19 +95,19 @@ export class BetsService {
     {
       nombrePublico: 'España',
       nombreForApi: 'spain/laliga/'
-    },  
+    },
     {
       nombrePublico: '1. España L2',
       nombreForApi: 'spain/laliga-2/'
-    },    
+    },
     // {
     //   nombrePublico: '1. España L2 2022',
     //   nombreForApi: 'spain/laliga-2-2022-2023/'
-    // },  
+    // },
     // {
     //   nombrePublico: '1. España L2 2023',
     //   nombreForApi: 'spain/laliga-2-2023-2024/'
-    // }, 
+    // },
     {
       nombrePublico: 'Colombia 2025 A',
       nombreForApi: 'colombia/primera-a-apertura/'
@@ -150,7 +151,7 @@ export class BetsService {
     {
       nombrePublico: 'Chile',
       nombreForApi: 'chile/primera-division/'
-    },   
+    },
     {
       nombrePublico: 'Inglaterra',
       nombreForApi: 'england/premier-league/'
@@ -198,31 +199,31 @@ export class BetsService {
     {
       nombrePublico: 'Ecuador',
       nombreForApi: 'ecuador/serie-a-1-stage/'
-    }, 
+    },
     {
       nombrePublico: 'Ecuador B',
       nombreForApi: 'ecuador/liga-pro-serie-b/'
-    }, 
+    },
     // {
     //   nombrePublico: 'Ecuador B 2020',
     //   nombreForApi: 'ecuador/liga-pro-serie-b-2020/'
-    // }, 
+    // },
     // {
     //   nombrePublico: 'Ecuador B 2021',
     //   nombreForApi: 'ecuador/liga-pro-serie-b-2021/'
-    // }, 
+    // },
     // {
     //   nombrePublico: 'Ecuador B 2022',
     //   nombreForApi: 'ecuador/liga-pro-serie-b-2022/'
-    // }, 
+    // },
     // {
     //   nombrePublico: 'Ecuador B 2023',
     //   nombreForApi: 'ecuador/liga-pro-serie-b-2023/'
-    // }, 
+    // },
     // {
     //   nombrePublico: 'Ecuador B 2024',
     //   nombreForApi: 'ecuador/liga-pro-serie-b-2024/'
-    // }, 
+    // },
     {
       nombrePublico: 'Egipto',
       nombreForApi: 'egypt/premier-league/'
@@ -350,7 +351,7 @@ export class BetsService {
     {
       nombrePublico: 'Japon',
       nombreForApi: 'japan/j-league/'
-    },   
+    },
     {
       nombrePublico: 'Uzbekistan',
       nombreForApi: 'uzbekistan/superliga/'
@@ -382,7 +383,7 @@ export class BetsService {
     {
       nombrePublico: 'Italia',
       nombreForApi: 'italy/serie-a/'
-    },    
+    },
     {
       nombrePublico: 'Alemania',
       nombreForApi: 'germany/bundesliga/'
@@ -513,7 +514,7 @@ export class BetsService {
     {
       nombrePublico: 'Croacia',
       nombreForApi: 'croatia/1st-league/'
-    },  
+    },
     {
       nombrePublico: 'Rep. Checa',
       nombreForApi: 'czech-republic/1st-league/'
@@ -621,31 +622,31 @@ export class BetsService {
     {
       nombrePublico: 'Hungria',
       nombreForApi: 'hungary/nb-i/'
-    }, 
+    },
     {
       nombrePublico: 'Bolivia  A',
       nombreForApi: 'bolivia/primera-division-apertura/'
-    },  
+    },
     // {
     //   nombrePublico: '1. Bolivia C',
     //   nombreForApi: 'bolivia/primera-division-clausura/'
-    // }, 
+    // },
     // {
     //   nombrePublico: '1. Bolivia C 2019',
     //   nombreForApi: 'bolivia/primera-division-clausura-2019/'
-    // }, 
+    // },
     // {
     //   nombrePublico: '1. Bolivia  A 2020',
     //   nombreForApi: 'bolivia/primera-division-apertura-2020/'
-    // },  
+    // },
     // {
     //   nombrePublico: '1. Bolivia C 2022',
     //   nombreForApi: 'bolivia/primera-division-clausura-2022/'
-    // }, 
+    // },
     // {
     //   nombrePublico: '1. Bolivia  A 2022',
     //   nombreForApi: 'bolivia/primera-division-apertura-2022/'
-    // }, 
+    // },
     // {
     //   nombrePublico: '1. Bolivia  A 2024',
     //   nombreForApi: 'bolivia/primera-division-apertura-2024/'
@@ -701,23 +702,23 @@ export class BetsService {
     {
       nombrePublico: '1. Polonia L1',
       nombreForApi: 'poland/i-liga/'
-    }, 
+    },
     // {
     //   nombrePublico: '1. Polonia L1 2020',
     //   nombreForApi: 'poland/i-liga-2020-2021/'
-    // }, 
+    // },
     // {
     //   nombrePublico: '1. Polonia L1 2021',
     //   nombreForApi: 'poland/i-liga-2021-2022/'
-    // }, 
+    // },
     // {
     //   nombrePublico: '1. Polonia L1 2022',
     //   nombreForApi: 'poland/i-liga-2022-2023/'
-    // }, 
+    // },
     // {
     //   nombrePublico: '1. Polonia L1 2023',
     //   nombreForApi: 'poland/i-liga-2023-2024'
-    // },  
+    // },
     {
       nombrePublico: 'Eslovaquia',
       nombreForApi: 'slovakia/fortuna-liga/'
@@ -769,19 +770,19 @@ export class BetsService {
     // {
     //   nombrePublico: '1. Suecia 2024',
     //   nombreForApi: 'sweden/allsvenskan-2024/'
-    // },    
+    // },
     {
       nombrePublico: 'Suiza',
       nombreForApi: 'switzerland/super-league/'
-    },  
+    },
     {
       nombrePublico: 'Turquia',
       nombreForApi: 'turkiye/super-lig'
-    },  
+    },
     {
       nombrePublico: 'Turquia L1',
       nombreForApi: 'turkiye/1st-lig/'
-    },      
+    },
     {
       nombrePublico: 'Gales',
       nombreForApi: 'wales/cymru-premier/'
@@ -789,11 +790,11 @@ export class BetsService {
     {
       nombrePublico: 'Paraguay A',
       nombreForApi: 'paraguay/division-profesional-apertura/'
-    },   
+    },
     {
       nombrePublico: 'Peru A',
       nombreForApi: 'peru/liga-1-apertura/'
-    },   
+    },
     {
       nombrePublico: 'Uruguay',
       nombreForApi: 'uruguay/primera-division-apertura/'
@@ -869,11 +870,11 @@ export class BetsService {
     {
       nombrePublico: 'Sudáfrica',
       nombreForApi: 'south-africa/premier-league/'
-    },   
+    },
     {
       nombrePublico: 'Mexico Expansión C',
       nombreForApi: 'mexico/liga-de-expansion-mx-clausura/'
-    },   
+    },
     {
       nombrePublico: 'México Femenil',
       nombreForApi: 'mexico/liga-mx-clausura-women/'
@@ -1174,7 +1175,7 @@ export class BetsService {
     {
       nombrePublico: 'Ucrania',
       nombreForApi: 'ukraine/premier-league/'
-    },  
+    },
     {
       nombrePublico: 'Birmania',
       nombreForApi: 'myanmar/national-league/'
@@ -1357,6 +1358,7 @@ export class BetsService {
    private servicioUrl: string = '/v1/api/app/stage/soccer/';
 
    public resultados: Summary[] = [];
+   public resultadosDetail: Summary[] = [];
    public proximos: Summary[] = [];
 
    public shortCount: number[] = [];
@@ -1370,14 +1372,65 @@ export class BetsService {
    public loading: boolean = false;
 
    public checkList: HotCheck[] = [];
- 
+
+   public currEvent: string = "";
+
 
    constructor(private http: HttpClient) {
    }
 
+   buscarDetalleGame(query: string = '') {
+       var urlArmed = this.url + query;
+       console.log('Esto llega a buscar detalle: '+ query);
+       console.log('Esta es la url armada: '+urlArmed);
+
+
+       this.http.get(urlArmed, {  responseType: 'text' })
+         .subscribe((resp) => {
+          var inicioString = resp.indexOf('scoresByPeriod');
+          var finString = resp.indexOf('aggregateHomeScore');
+
+          console.log(inicioString);
+          console.log(finString);
+
+          if (inicioString > 0){
+            var textoExtraido: string = "{"+resp.substring(inicioString-1, finString-2)+"}";
+           // console.log(textoExtraido);
+            const detail: Detail = JSON.parse(textoExtraido);
+
+
+          }
+          else {
+            console.log('no data detected.')
+          }
+         // textoExtraido = textoExtraido.replace('stages','Stages');
+
+         // const liga: Liga = JSON.parse(textoExtraido);
+
+        //  console.log(liga);
+
+        },
+        (error) => {
+          console.error('Ocurrió un error al obtener el detalle del Juego:', error);
+          this.loading = false;
+        }
+
+      );
+
+
+   }
+
+
    buscarResultados(query: string = '') {
 
+          this.currEvent = query;
+
          var urlArmed = this.url + query + '/results/'
+
+
+         console.log('Esto llega a buscar detalle: '+ query);
+         console.log('Esta es la url armada: '+urlArmed);
+
 
          this.http.get(urlArmed, {  responseType: 'text' })
          .subscribe((resp) => {
@@ -1415,54 +1468,15 @@ export class BetsService {
           console.error('Ocurrió un error:', error);
           this.loading = false;
         }
-    
+
       );
-  
-    
-
-      // const params = new HttpParams()
-      //   .set('MD', '1');
-
-      // this.http.get<Liga>(`${this.servicioUrl}${query}-6`, { params })
-      //   .subscribe((resp) => {
-      //     console.log(resp);
-      //     this.Eventos = [];
-      //     this.resultados = [];
-      //     this.proximos = [];
-      //     this.shortCount = [];
-
-      //     if (resp.Stages.length > 0) {
-      //       if (resp.Stages[0].Events) {
-
-      //         this.Eventos = resp.Stages[0].Events;
-
-      //         this.setProximosEventos([...this.Eventos]);
-      //         this.setResultados(query);
-
-      //       }
-      //     }
-      //   });
-
-
   }
 
   public getEventosByLiga(liga: string) {
-     
+
      return this.http.get<string>(liga);
 
   }
-
-
-
-  //  public getEventosByLiga(liga: string) {
-
-  //    const params = new HttpParams()
-  //      .set('MD', '1');
-
-  //    const url = `${this.servicioUrl}${liga}-6`;
-  //    return this.http.get<Liga>(url, { params });
-
-  //  }
 
   setResultados(q: string) {
 
@@ -1480,6 +1494,7 @@ export class BetsService {
       if (itmEvent.TLGoals == itmEvent.TVGoals) { this.shortCount.push(shortSum); this.totDraw += 1; }
 
       itmEvent.CurrentCount = conteo;
+      itmEvent.Eid = e.Eid.toString();
 
       this.resultados.push(itmEvent);
 

@@ -20,8 +20,9 @@ export class MarcadoresComponent  {
   get shortResultReverse() {
     return this.betService.shortCount.reverse();
   }
+
   constructor(private betService : BetsService) {
 
-  }  
+  }
 
 }

@@ -35,6 +35,7 @@ export interface ListStatics {
 }
 
 export interface Summary {
+    Eid?    : string; // id del Juego
     TLName : string; // Team Local Name
     TVName : string; // Team Visit Name
     TLGoals: number; // Team Visit Goals
@@ -81,6 +82,10 @@ export interface Event {
     Stg:    Stage;
     Pid:    number;
     Spid:   number;
+    GHtT1?:  number;
+    GHtT2?:  number;
+    GFtT1?:  number;
+    GFtT2?:  number;
 }
 
 export interface Stage {

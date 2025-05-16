@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { BetsPageComponent } from './bets-page/bets-page.component';
 import { MarcadoresComponent } from './marcadores/marcadores.component';
+import { SeasonDetailComponent } from './season-detail/season-detail.component';
 import { NextGamesComponent } from './next-games/next-games.component';
 import { SharedModule } from '../shared/shared.module';
 import { HotListComponent } from './hot-list/hot-list.component';
@@ -17,6 +18,7 @@ import { HotListItemComponent } from './hot-list-item/hot-list-item.component';
   declarations: [
     BetsPageComponent,
     MarcadoresComponent,
+    SeasonDetailComponent,
     NextGamesComponent,
     HotListComponent,
     HotListItemComponent,
