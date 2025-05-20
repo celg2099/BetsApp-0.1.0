@@ -7,8 +7,6 @@ import { firstValueFrom } from 'rxjs';
 import { Detail } from '../interface/detail.interface';
 
 
-
-
 @Injectable({
   providedIn: 'root'
 })
@@ -1361,13 +1359,17 @@ export class BetsService {
    public resultadosDetail: Summary[] = [];
    public proximos: Summary[] = [];
 
+
+
    public shortCount: number[] = [];
+   public shortCountHt: number[] = [];
 
    public Eventos: Event[] = [];
 
    public ligaActual: string = "";
    public conteoActual: number = 0;
    public totDraw: number = 0;
+   public totDrawHt: number = 0;
 
    public loading: boolean = false;
 
@@ -1375,80 +1377,74 @@ export class BetsService {
 
    public currEvent: string = "";
 
+   public currentDetallGame: any;
+
+
 
    constructor(private http: HttpClient) {
    }
 
+
+   async getDetailGame2(item: Summary): Promise<string> {
+
+    var strGetByGame = item.TLName.toLocaleLowerCase().replace(' ','-') + '-vrs-' + item.TVName.toLocaleLowerCase().replace(' ','-') + '/'+ item.Eid + '/stats/';
+    var url = this.currEvent + strGetByGame;
+    var urlArmed = this.url + url;
+    this.currentDetallGame = item;
+
+    const datos = await firstValueFrom(this.http.get(urlArmed, {  responseType: 'text' }));
+    return datos;
+  }
+
+
+   public getDetailGame(query: string): Observable<string> {
+
+
+    var urlArmed = this.url + query;
+    return this.http.get(urlArmed, { responseType: 'text' });
+   }
+
+
    buscarDetalleGame(query: string = '') {
        var urlArmed = this.url + query;
-       console.log('Esto llega a buscar detalle: '+ query);
-       console.log('Esta es la url armada: '+urlArmed);
-
-
        this.http.get(urlArmed, {  responseType: 'text' })
          .subscribe((resp) => {
           var inicioString = resp.indexOf('scoresByPeriod');
           var finString = resp.indexOf('aggregateHomeScore');
 
-          console.log(inicioString);
-          console.log(finString);
-
           if (inicioString > 0){
             var textoExtraido: string = "{"+resp.substring(inicioString-1, finString-2)+"}";
-           // console.log(textoExtraido);
             const detail: Detail = JSON.parse(textoExtraido);
-
-
           }
           else {
-            console.log('no data detected.')
+            console.log('No data detected.')
           }
-         // textoExtraido = textoExtraido.replace('stages','Stages');
-
-         // const liga: Liga = JSON.parse(textoExtraido);
-
-        //  console.log(liga);
-
         },
         (error) => {
           console.error('Ocurrió un error al obtener el detalle del Juego:', error);
           this.loading = false;
         }
-
       );
-
-
    }
 
 
    buscarResultados(query: string = '') {
 
-          this.currEvent = query;
+         this.currEvent = query;
 
          var urlArmed = this.url + query + '/results/'
-
-
-         console.log('Esto llega a buscar detalle: '+ query);
-         console.log('Esta es la url armada: '+urlArmed);
-
 
          this.http.get(urlArmed, {  responseType: 'text' })
          .subscribe((resp) => {
 
           var inicioString = resp.indexOf('"initialStageData"');
           var finString = resp.indexOf('],"stage":{');
-          console.log(inicioString);
-          console.log(finString);
 
           var textoExtraido: string = resp.substring(inicioString+19, finString+1)+"}";
-
-          console.log(textoExtraido.length);
 
           textoExtraido = textoExtraido.replace('stages','Stages');
 
           const liga: Liga = JSON.parse(textoExtraido);
-
-          console.log(liga);
 
           this.Eventos = [];
           this.resultados = [];
@@ -1457,7 +1453,6 @@ export class BetsService {
 
           if (liga.Stages.length > 0) {
             if (liga.Stages[0].Events) {
-
               this.Eventos = liga.Stages[0].Events;
               this.setProximosEventos([...this.Eventos]);
               this.setResultados(query);
@@ -1473,9 +1468,7 @@ export class BetsService {
   }
 
   public getEventosByLiga(liga: string) {
-
      return this.http.get<string>(liga);
-
   }
 
   setResultados(q: string) {
@@ -1512,8 +1505,6 @@ export class BetsService {
     }
 
     this.loading = false;
-
-
   }
 
   setProximosEventos(games: Event[]) {

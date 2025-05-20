@@ -40,6 +40,8 @@ export interface Summary {
     TVName : string; // Team Visit Name
     TLGoals: number; // Team Visit Goals
     TVGoals: number; // Team Visit Goals
+    TLHtGoals?: number; // Team Local Goals Half Time
+    TVHtGoals?: number; // Team Visit Goals Half time
     CurrentCount: number; // Partidos sin empate hasta nuevo empate
     Date: Date
 }

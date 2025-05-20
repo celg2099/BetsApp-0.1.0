@@ -1,7 +1,52 @@
 <br>
 <div class="row">
   <div class="col">
-      <button mat-flat-button color="primary" (click) = "shoHTScore( )"><mat-icon aria-hidden="false" fontIcon="play_circle_outline"></mat-icon> Show HT Score </button>
+      <button mat-flat-button color="primary" (click) = "shoHTScore2( )"><mat-icon aria-hidden="false" fontIcon="play_circle_outline"></mat-icon> Show HT Score </button>
   </div>
+</div>
+<div class="row">
+  <div class="col-md-11">
+    <table *ngIf="resultados.length > 0" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">LOCAL</th>
+                <th scope="col"> </th>
+                <th scope="col"> </th>
+                <th scope="col">VISITA</th>
+                <th scope="col"> </th>
+                <th scope="col"> </th>
+                <th scope="col">FECHA</th>
+                <th scope="col"> </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let evento of resultados">
+                <td>{{ evento.TLName }}</td>
+                <td>{{ evento.TLGoals }}</td>
+                <td>{{ evento.TVGoals }}</td>
+                <td>{{ evento.TVName }}</td>
+                <td>{{ evento.TLHtGoals }}</td>
+                <td>{{ evento.TVHtGoals }}</td>
+                <td>{{ evento.Date| date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+
+            </tr>
+        </tbody>
+    </table>
+
+  </div>
+  <div class="col-md-1">
+    <table  *ngIf="shortResultHt.length > 0" class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th scope="col">CONTEO </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of shortResultHt">
+                <td> {{ item }} </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 </div>
 <br>
