@@ -1428,47 +1428,41 @@ export class BetsService {
    }
 
 
-   buscarResultados(query: string = '') {
+  buscarResultados(query: string = '') {
 
-         this.currEvent = query;
+    this.currEvent = query;
 
-         var urlArmed = this.url + query + '/results/'
+    const params = new HttpParams()
+      .set('MD', '1');
 
-         this.http.get(urlArmed, {  responseType: 'text' })
-         .subscribe((resp) => {
+    this.http.get<Liga>(`${this.servicioUrl}${query}-6`, { params })
+      .subscribe((resp) => {
+        console.log(resp);
+        this.Eventos = [];
+        this.resultados = [];
+        this.proximos = [];
+        this.shortCount = [];
 
-          var inicioString = resp.indexOf('"initialStageData"');
-          var finString = resp.indexOf('],"stage":{');
+        if (resp.Stages.length > 0) {
+          if (resp.Stages[0].Events) {
 
-          var textoExtraido: string = resp.substring(inicioString+19, finString+1)+"}";
+            this.Eventos = resp.Stages[0].Events;
 
-          textoExtraido = textoExtraido.replace('stages','Stages');
+            this.setProximosEventos([...this.Eventos]);
+            this.setResultados(query);
 
-          const liga: Liga = JSON.parse(textoExtraido);
-
-          this.Eventos = [];
-          this.resultados = [];
-          this.proximos = [];
-          this.shortCount = [];
-
-          if (liga.Stages.length > 0) {
-            if (liga.Stages[0].Events) {
-              this.Eventos = liga.Stages[0].Events;
-              this.setProximosEventos([...this.Eventos]);
-              this.setResultados(query);
-            }
           }
-        },
-        (error) => {
-          console.error('Ocurrió un error:', error);
-          this.loading = false;
         }
+      });
 
-      );
   }
 
   public getEventosByLiga(liga: string) {
-     return this.http.get<string>(liga);
+    const params = new HttpParams()
+      .set('MD', '1');
+
+    const url = `${this.servicioUrl}${liga}-6`;
+    return this.http.get<Liga>(url, { params });
   }
 
   setResultados(q: string) {

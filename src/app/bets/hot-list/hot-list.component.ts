@@ -24,71 +24,56 @@ export class HotListComponent{
 
     ligasOrdenadasByName =  ligasOrdenadasByName.sort((a,b) => (a.nombrePublico > b.nombrePublico) ? 1 : ((b.nombrePublico > a.nombrePublico) ? -1 : 0));
 
-
-    var url = '/en/football/';
-
     ligasOrdenadasByName.forEach( e => {
 
-      var urlArmed = url + e.nombreForApi + '/results/'    
-      this.http.get(urlArmed, {  responseType: 'text' }).subscribe(
-        resp => {
+     this.betService.getEventosByLiga(e.nombreForApi).subscribe(
+      resp => {
+        if (resp.Stages.length > 0) {
+          if (resp.Stages[0].Events) {
+            var conteo = 0;
+            var shortSum = 0;
+            var mxConteo = 0;
+            var totDraw = 0;
+            var lstCont : number[] =  [];
 
-        var inicioString = resp.indexOf('"initialStageData"');
-        var finString = resp.indexOf('],"stage":{');
+            var lstEventos = resp.Stages[0].Events;
 
-        var textoExtraido: string = resp.substring(inicioString+19, finString+1)+"}";
+            var lstNextGames = [...lstEventos];
 
-        textoExtraido = textoExtraido.replace('stages','Stages');
+            lstNextGames = lstNextGames.filter(e => (e.Eps == Eps.NS));
 
-        const liga: Liga = JSON.parse(textoExtraido);
+            lstEventos = lstEventos.filter(e => (e.Eps == Eps.Ft));
 
-          if (liga.Stages.length > 0) {
-            if (liga.Stages[0].Events) {
-              var conteo = 0;
-              var shortSum = 0;
-              var mxConteo = 0;
-              var totDraw = 0;
-              var lstCont : number[] =  [];
+            lstEventos.forEach((itm) => {
 
-              var lstEventos = liga.Stages[0].Events;
+              shortSum = conteo;
+              conteo = (Number(itm.Tr1) == Number(itm.Tr2)) ? 0 : conteo += 1;
 
-              var lstNextGames = [...lstEventos];
+              if(Number(itm.Tr1) == Number(itm.Tr2)){ lstCont.push(shortSum); totDraw += 1; }
 
-              lstNextGames = lstNextGames.filter(e => (e.Eps == Eps.NS));
+            });
 
-              lstEventos = lstEventos.filter(e => (e.Eps == Eps.Ft));
+            lstCont.push(conteo);
+            if(lstCont.length > 0 ){  mxConteo = Math.max(...lstCont.map(o => o)); };
 
-              lstEventos.forEach((itm) => {
-
-                shortSum = conteo;
-                conteo = (Number(itm.Tr1) == Number(itm.Tr2)) ? 0 : conteo += 1;
-          
-                if(Number(itm.Tr1) == Number(itm.Tr2)){ lstCont.push(shortSum); totDraw += 1; }
-          
-              });
-
-              lstCont.push(conteo);
-              if(lstCont.length > 0 ){  mxConteo = Math.max(...lstCont.map(o => o)); };
-              
-              var itmEvent: HotCheck = {
-                pais: e.nombrePublico,
-                liga: e.nombreForApi,
-                conteoActual: conteo,
-                maxConteo: mxConteo,
-                totDraw: totDraw,
-                gamesFinished: lstEventos.length,
-                lstConteo: [...lstCont],
-                percentDraw: (lstEventos.length > 0) ? (totDraw/lstEventos.length)*100 : 0,
-                dateNextGame: (lstNextGames.length > 0) ? this.getDateMinusHour(lstNextGames[0].Esd.toString()) : ""
-              }
-
-              this.hl.push(itmEvent);
-  
+            var itmEvent: HotCheck = {
+              pais: e.nombrePublico,
+              liga: e.nombreForApi,
+              conteoActual: conteo,
+              maxConteo: mxConteo,
+              totDraw: totDraw,
+              gamesFinished: lstEventos.length,
+              lstConteo: [...lstCont],
+              percentDraw: (lstEventos.length > 0) ? (totDraw/lstEventos.length)*100 : 0,
+              dateNextGame: (lstNextGames.length > 0) ? this.getDateFormat(lstNextGames[0].Esd.toString()) : ""
             }
-          } 
-        }
-      );
 
+            this.hl.push(itmEvent);
+
+          }
+        }
+      }
+     )
      });
   }
 
@@ -103,7 +88,7 @@ export class HotListComponent{
     var min = dateStr.toString().substring(10, 12);
     var seg = dateStr.toString().substring(12, 14);
 
-    return month + '/' + day + '/' + year + ' ' + hour + ':' + min + ':' + seg;
+    return day + '/' + month + '/' + year + ' ' + hour + ':' + min + ':' + seg;
 
   }
 
@@ -133,7 +118,7 @@ export class HotListComponent{
 
 
   sortTable(column: number) {
-    
+
     switch (column)
     {
        case 1: {  this.hl.sort((a,b) => (a.liga > b.liga) ? 1 : ((b.liga > a.liga) ? -1 : 0)); break}
@@ -144,14 +129,14 @@ export class HotListComponent{
        case 6: {  this.hl.sort((a,b) => (a.percentDraw > b.percentDraw) ? 1 : ((b.percentDraw > a.percentDraw) ? -1 : 0)); break}
       //  case 7: {  this.hl.sort((a,b) => (a.dateNextGame > b.dateNextGame) ? 1 : ((b.dateNextGame > a.dateNextGame) ? -1 : 0)); break}
       case 7: {  this.hl.sort((a,b) => this.compareDateString(a.dateNextGame, b.dateNextGame) ? 1 : ((this.compareDateString(b.dateNextGame, a.dateNextGame)) ? -1 : 0)); break}
-       default: 
+       default:
        this.hl.sort((a,b) => (a.liga > b.liga) ? 1 : ((b.liga > a.liga) ? -1 : 0));
-    }       
+    }
   }
 
 
    compareDateString( str1: string, str2: string):boolean {
-     
+
         var a = this.getDateFromString(str1);
         var b = this.getDateFromString(str2);
 
@@ -159,7 +144,7 @@ export class HotListComponent{
        var date2 = new Date(b);
 
        return date1 > date2;
-     
+
    }
 
    getDateFromString( str1: string ): Date {
