@@ -1,0 +1,81 @@
+<hr />
+<div class="row">
+    <div class="col">
+        <button mat-flat-button color="primary" (click) = "generarLista( )"><mat-icon aria-hidden="false" fontIcon="play_circle_outline"></mat-icon> Generar Lista</button>
+    </div>
+</div>
+<br>
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-link active" id="nav-all-tab" data-bs-toggle="tab" href="#nav-all" role="tab"
+        aria-controls="nav-all" aria-selected="true"><mat-icon aria-hidden="false" fontIcon="alarm_on"></mat-icon> Todos</a>
+      <a class="nav-link" id="nav-only-hot-tab" data-bs-toggle="tab" href="#nav-only-hot" role="tab"
+        aria-controls="nav-only-hot" aria-selected="false"><mat-icon aria-hidden="false" fontIcon="alarm_add"></mat-icon> Only HOT</a>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">PAIS</th>
+                            <th scope="col" (click)="sortTable(1)">LIGA</th>
+                            <th scope="col" (click)="sortTable(2)">CONTEO ACTUAL</th>
+                            <th scope="col" (click)="sortTable(3)">MÁXIMO CONTEO</th>
+                            <th scope="col" (click)="sortTable(4)">JUEGOS REALIZADOS</th>
+                            <th scope="col" (click)="sortTable(5)">TOTAL EMPATES</th>
+                            <th scope="col" (click)="sortTable(6)">% EMPATES LIGA </th>
+                            <th scope="col" (click)="sortTable(7)">% NEXT GAME </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let evento of hl">
+                            <td  (click)="setInfoLeague(evento)">{{ evento.pais }}</td>
+                            <td>{{ getLiga(evento.liga) }}</td>
+                            <td>{{ evento.conteoActual }}</td>
+                            <td>{{ evento.maxConteo }}</td>
+                            <td>{{ evento.gamesFinished }}</td>
+                            <td>{{ evento.totDraw }}</td>
+                            <td>{{ evento.percentDraw | number : '1.2-2' }}</td>
+                            <td>{{ evento.dateNextGame }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-only-hot" role="tabpanel" aria-labelledby="nav-only-hot-tab">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">PAIS</th>
+                            <th scope="col" (click)="sortTable(1)">LIGA</th>
+                            <th scope="col" (click)="sortTable(2)">CONTEO ACTUAL</th>
+                            <th scope="col" (click)="sortTable(3)">MÁXIMO CONTEO</th>
+                            <th scope="col" (click)="sortTable(4)">JUEGOS REALIZADOS</th>
+                            <th scope="col" (click)="sortTable(5)">TOTAL EMPATES</th>
+                            <th scope="col" (click)="sortTable(6)">% EMPATES LIGA </th>
+                            <th scope="col" (click)="sortTable(7)">% NEXT GAME </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let e of hl">
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)"  (click)="setInfoLeague(e)">{{ e.pais }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ getLiga(e.liga)  }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.conteoActual }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.maxConteo }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.gamesFinished }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.totDraw }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)">{{ e.percentDraw | number : '1.2-2' }}</td>
+                            <td *ngIf="e.conteoActual >= (e.maxConteo - 2)"> {{  e.dateNextGame }} </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>

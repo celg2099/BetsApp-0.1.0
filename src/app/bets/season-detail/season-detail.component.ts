@@ -3,6 +3,7 @@ import { BetsService } from '../service/bets.service';
 import { Detail } from '../interface/detail.interface';
 import { Summary, Liga, Eps, Event, LigaHomologada, HotCheck } from '../interface/results.interface';
 import { of, concatMap } from 'rxjs';
+import { ListStatics } from '../interface/results.interface';
 
 
 @Component({
@@ -12,13 +13,15 @@ import { of, concatMap } from 'rxjs';
 export class SeasonDetailComponent  {
 
   datos: string = "";
+  conteoActualHt: number = 0;
+  hideSumary: number = 0;
 
   get seasonDetail() {
     return this.betService.proximos;
   }
 
-  shoHTScore2( ) {
-
+  shoHTScore( ) {
+    this.hideSumary = 0;
     this.betService.resultadosDetail = [];
     this.betService.shortCountHt = [];
     var conteo = 0;
@@ -56,50 +59,15 @@ export class SeasonDetailComponent  {
             });
             this.betService.shortCountHt.push(conteo);
           }
+
+          if (this.betService.shortCountHt.length > 0) {
+            this.conteoActualHt = this.betService.shortCountHt[0];
+          }
+          this.hideSumary = 1;
         }
        });
      });
-
-
-
-
-
-
    //  this.betService.shortCountHt.push(conteo);
- }
-
-
-  shoHTScore( ) {
-
-    console.log("Evento actual: "+this.betService.currEvent);
-    this.betService.resultadosDetail = [];
-    this.betService.shortCountHt = [];
-    var conteo = 0;
-    var shortSum = 0;
-    this.betService.totDrawHt = 0;
-
-    of(...this.betService.resultados).pipe(
-        concatMap(e => this.betService.getDetailGame2(e) )
-      ).subscribe( {
-                    next: data => {
-                          var detalle = this.getDetalleGame(data);
-
-                          var detallGame: Summary = this.betService.currentDetallGame;
-
-                          if (detalle){
-                              detallGame.TLHtGoals = detalle.scoresByPeriod[0].home.score;
-                              detallGame.TVHtGoals = detalle.scoresByPeriod[0].away.score;
-
-                              shortSum = conteo;
-                              conteo = (detallGame.TLHtGoals == detallGame.TVHtGoals) ? 0 : conteo += 1;
-                              if (detallGame.TLHtGoals == detallGame.TVHtGoals) { this.betService.shortCountHt.push(shortSum); this.betService.totDrawHt += 1; }
-                          }
-                          console.log("Esto devuelve: ", detallGame);
-                          this.betService.resultadosDetail.push(detallGame);
-                     },
-                    error: err => console.error('Error al obtener HTML:', err),
-                    complete: () => this.betService.shortCountHt.push(conteo)
-    })
  }
 
   getDetalleGame(htlm: string): Detail | null {
@@ -120,6 +88,10 @@ export class SeasonDetailComponent  {
     }
 };
 
+get currentCount() {
+  return this.betService.conteoActual;
+}
+
 sortTable() {
   this.betService.resultadosDetail.sort((a, b) => b.Date.getTime() - a.Date.getTime());
 }
@@ -130,6 +102,45 @@ get resultados() {
 
 get shortResultHt() {
   return this.betService.shortCountHt;
+}
+
+get maxCountHt() {
+  var a = -1;
+
+  if(this.betService.shortCountHt.length > 0){
+     a = Math.max(...this.betService.shortCountHt.map(o => o));
+  }
+  return a;
+
+}
+
+  get getModa() {
+    var a = -1;
+    var b = -1;
+    var aux : ListStatics[] = [];
+
+    this.betService.shortCountHt.forEach( ( itm, idx) => {
+
+      const found = aux.some(el => el.valor === itm);
+
+      if (!found) { aux.push({ valor: itm, info: 1 }); }
+      else {
+               aux.forEach( (e,i) => {  if(e.valor == itm){  aux[i].info = aux[i].info + 1 } })
+      }
+    });
+
+     a = Math.max(...aux.map(o => o.info));
+
+     if(a > -1){
+          aux.forEach( e => { if( e.info == a){ b = e.valor}      })
+     }
+
+    return b;
+
+  }
+
+get juegosFinalizadosHt() {
+  return this.betService.resultados;
 }
 
 constructor(private betService : BetsService) {

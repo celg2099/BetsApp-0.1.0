@@ -1,9 +1,36 @@
 <br>
 <div class="row">
   <div class="col">
-      <button mat-flat-button color="primary" (click) = "shoHTScore2( )"><mat-icon aria-hidden="false" fontIcon="play_circle_outline"></mat-icon> Show HT Score </button>
+      <button mat-flat-button color="primary" (click) = "shoHTScore( )"><mat-icon aria-hidden="false" fontIcon="play_circle_outline"></mat-icon> Show HT Score </button>
   </div>
 </div>
+<div class="row"  *ngIf="hideSumary">
+  <div class="col-3">
+      <h2 class="text-success" matTooltip="Conteo ACTUAL"><strong>
+          <mat-icon  aria-hidden="false" fontIcon="functions">
+          </mat-icon> {{ currentCount }}
+        </strong></h2>
+  </div>
+  <div class="col-3">
+    <h2 class="text-success"  matTooltip="Máximo Conteo Registrado"><strong>
+      <mat-icon aria-hidden="false" fontIcon="today">
+      </mat-icon> {{ maxCountHt }}
+    </strong></h2>
+  </div>
+  <div class="col-3">
+    <h2 class="text-success"  matTooltip="Total de Juegos Finalizados"><strong>
+      <mat-icon aria-hidden="false" fontIcon="assignment_turned_in">
+      </mat-icon> {{ juegosFinalizadosHt.length }}
+    </strong></h2>
+  </div>
+  <div class="col-3">
+    <h2 class="text-primary"  matTooltip="moda"><strong>
+      <mat-icon aria-hidden="false" fontIcon="leaderboard">
+      </mat-icon> {{ getModa }}
+    </strong></h2>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-md-11">
     <table *ngIf="resultados.length > 0" class="table table-striped">

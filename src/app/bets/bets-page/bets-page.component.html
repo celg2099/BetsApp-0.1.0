@@ -4,6 +4,8 @@
       aria-controls="nav-resultados" aria-selected="true"> <mat-icon aria-hidden="false" fontIcon="folder_open"></mat-icon>  Detalle Liga</a>
     <a class="nav-link" id="nav-hotlist-tab" data-bs-toggle="tab" href="#nav-hotlist" role="tab"
       aria-controls="nav-hotlist" aria-selected="false"><mat-icon aria-hidden="false" fontIcon="local_fire_department"></mat-icon> Hot List</a>
+      <a class="nav-link" id="nav-hotlist-ht-tab" data-bs-toggle="tab" href="#nav-hotlistht" role="tab"
+      aria-controls="nav-hotlist" aria-selected="false"><mat-icon aria-hidden="false" fontIcon="local_fire_department"></mat-icon> Hot List HT</a>
   </div>
 </nav>
 <div class="tab-content" id="nav-tabContent">
@@ -88,5 +90,8 @@
   </div>
   <div class="tab-pane fade" id="nav-hotlist" role="tabpanel" aria-labelledby="nav-hotlist-tab">
     <app-hot-list></app-hot-list>
+  </div>
+  <div class="tab-pane fade" id="nav-hotlistht" role="tabpanel" aria-labelledby="nav-hotlist-ht-tab">
+    <app-hot-list-ht></app-hot-list-ht>
   </div>
 </div>

@@ -1438,6 +1438,10 @@ export class BetsService {
     this.http.get<Liga>(`${this.servicioUrl}${query}-6`, { params })
       .subscribe((resp) => {
         console.log(resp);
+
+        this.resultadosDetail = [];
+        this.shortCountHt = [];
+
         this.Eventos = [];
         this.resultados = [];
         this.proximos = [];

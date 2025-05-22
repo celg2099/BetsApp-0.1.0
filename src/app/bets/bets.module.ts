@@ -11,6 +11,7 @@ import { NextGamesComponent } from './next-games/next-games.component';
 import { SharedModule } from '../shared/shared.module';
 import { HotListComponent } from './hot-list/hot-list.component';
 import { HotListItemComponent } from './hot-list-item/hot-list-item.component';
+import { HotListComponentHt } from './hot-list-ht/hot-list-ht.component'
 
 
 
@@ -21,6 +22,7 @@ import { HotListItemComponent } from './hot-list-item/hot-list-item.component';
     SeasonDetailComponent,
     NextGamesComponent,
     HotListComponent,
+    HotListComponentHt,
     HotListItemComponent,
   ],
   exports: [
