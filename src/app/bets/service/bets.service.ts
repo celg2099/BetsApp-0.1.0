@@ -1469,6 +1469,15 @@ export class BetsService {
     return this.http.get<Liga>(url, { params });
   }
 
+  public getEventosByLiga2(liga: string) : Observable<Liga> {
+
+      const params = new HttpParams()
+      .set('MD', '1');
+      const url = `${this.servicioUrl}${liga}-6`;
+    return this.http.get<Liga>(url, { params });
+  }
+
+
   setResultados(q: string) {
 
     this.Eventos = this.Eventos.filter(e => (e.Eps == Eps.Ft));

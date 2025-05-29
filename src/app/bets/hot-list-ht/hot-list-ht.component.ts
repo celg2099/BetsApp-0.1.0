@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { BetsService } from '../service/bets.service';
-//import { Eps, HotCheck, LigaHomologada, Liga } from '../interface/results.interface';
+//import { Eps, HotCheck, LigaHomologada, Liga, Event } from '../interface/results.interface';
 import { isNgTemplate } from '@angular/compiler';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Summary, Liga, Eps, Event, HotCheck, LigaHomologada } from '../interface/results.interface';
 import { Detail, ScoresByPeriod, Away } from '../interface/detail.interface';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-hot-list-ht',
@@ -21,96 +22,122 @@ export class HotListComponentHt {
 
     this.hl = [];
 
-    var ligasOrdenadasByName = [...this.betService.ligas].slice(0, 4);
+    var ligasOrdenadasByName = [...this.betService.ligas].slice(0, 2);
     ligasOrdenadasByName = ligasOrdenadasByName.filter(itm => itm.historico != 0);
 
     ligasOrdenadasByName = ligasOrdenadasByName.sort((a, b) => (a.nombrePublico > b.nombrePublico) ? 1 : ((b.nombrePublico > a.nombrePublico) ? -1 : 0));
 
-    ligasOrdenadasByName.forEach(e => {
+    ligasOrdenadasByName.forEach(async e => {
 
-      this.betService.getEventosByLiga(e.nombreForApi).subscribe(
-        resp => {
-          if (resp.Stages.length > 0) {
-            if (resp.Stages[0].Events) {
+      try {
+        var resp = await firstValueFrom(this.betService.getEventosByLiga2(e.nombreForApi));
 
-              console.log(e.nombreForApi);
+           if (resp.Stages.length > 0) {
 
-              resp.Stages[0].Events.forEach(g => {
-                var strGetByGame = g.T1[0].Nm.toLocaleLowerCase().replace(' ', '-') + '-vrs-' + g.T2[0].Nm.toLocaleLowerCase().replace(' ', '-') + '/' + g.Eid + '/stats/';
-                var url = e.nombreForApi + strGetByGame;
+             var listDetalle: ScoresByPeriod[] = [];
+             if (resp.Stages[0].Events) {
 
-                var iteracionNo = 0;
-                var listDetalle: ScoresByPeriod[] = [];
+               console.log(e.nombreForApi);
 
-                this.betService.totDrawHt = 0;
-                this.betService.getDetailGame(url).subscribe({
-                  next: (data) => {
-                    iteracionNo += 1;
-                    var detalle = this.getDetalleGame(data);
-                    console.log('Aqui llego: ', detalle)
-                    if (detalle != null) {
+               resp.Stages[0].Events.forEach(async g => {
+                 var strGetByGame = g.T1[0].Nm.toLocaleLowerCase().replace(' ', '-') + '-vrs-' + g.T2[0].Nm.toLocaleLowerCase().replace(' ', '-') + '/' + g.Eid + '/stats/';
+                 var url = e.nombreForApi + strGetByGame;
 
-                      var homeScore: Away = { score: detalle.scoresByPeriod[0].home.score }
-                      var awayScore: Away = { score: detalle.scoresByPeriod[0].away.score }
+                 var iteracionNo = 0;
 
-                      var x: ScoresByPeriod = {
 
-                        label: "",
-                        home: homeScore,
-                        away: awayScore,
-                        shouldDisplayFirst: false
-                      };
+                 this.betService.totDrawHt = 0;
 
-                      listDetalle.push(x);
+                 var data = await firstValueFrom(this.betService.getDetailGame(url));
+
+                     var detalle = this.getDetalleGame(data);
+                     if (detalle != null) {
+
+                       var homeScore: Away = { score: detalle.scoresByPeriod[0].home.score }
+                       var awayScore: Away = { score: detalle.scoresByPeriod[0].away.score }
+
+                       var x: ScoresByPeriod = {
+
+                         label: "",
+                         home: homeScore,
+                         away: awayScore,
+                         shouldDisplayFirst: false
+                       };
+
+                       listDetalle.push(x);
                     }
-                  },
-                  error: (error) => {
-                    console.error('Error al obtener HTML:', error);
-                  },
-                  complete: () => {
-                    console.log('iteracion', iteracionNo);
-                    console.log('lenght', resp.Stages[0].Events?.length);
-                    if (iteracionNo == resp.Stages[0].Events?.length) {
-                      this.sortList();
 
-                      var conteo = 0;
-                      var shortSum = 0;
-                      var mxConteo = 0;
-                      var totDraw = 0;
-                      var lstCont: number[] = [];
-               
-                      listDetalle.forEach((itm) => {
+                //  this.betService.getDetailGame(url).subscribe({
+                //    next: (data) => {
+                //      var detalle = this.getDetalleGame(data);
+                //      if (detalle != null) {
 
-                        shortSum = conteo;
-                        conteo = (itm.home.score == itm.away.score) ? 0 : conteo += 1;
+                //        var homeScore: Away = { score: detalle.scoresByPeriod[0].home.score }
+                //        var awayScore: Away = { score: detalle.scoresByPeriod[0].away.score }
 
-                        if (itm.home.score == itm.away.score) { lstCont.push(shortSum); totDraw += 1; }
+                //        var x: ScoresByPeriod = {
 
-                      });
+                //          label: "",
+                //          home: homeScore,
+                //          away: awayScore,
+                //          shouldDisplayFirst: false
+                //        };
 
-                      if (lstCont.length > 0) { mxConteo = Math.max(...lstCont.map(o => o)); };
+                //        listDetalle.push(x);
+                //      }
+                //    },
+                //    error: (error) => {
+                //      console.error('Error al obtener HTML:', error);
+                //    },
+                //    complete: () => {
 
-                      var itmEvent: HotCheck = {
-                        pais: e.nombrePublico,
-                        liga: e.nombreForApi,
-                        conteoActual: conteo,
-                        maxConteo: mxConteo,
-                        totDraw: totDraw,
-                        gamesFinished: iteracionNo,
-                        lstConteo: [...lstCont],
-                        percentDraw: (iteracionNo > 0) ? (totDraw / iteracionNo) * 100 : 0,
-                        dateNextGame: ""
-                      }
+                //        this.sortList();
 
-                      this.hl.push(itmEvent);
-                    }
-                  }
-                });
-              });
-            }
-          }
-        }
-      )
+                //        var conteo = 0;
+                //        var shortSum = 0;
+                //        var mxConteo = 0;
+                //        var totDraw = 0;
+                //        var lstCont: number[] = [];
+
+                //        listDetalle.forEach((itm) => {
+
+                //          shortSum = conteo;
+                //          conteo = (itm.home.score == itm.away.score) ? 0 : conteo += 1;
+
+                //          if (itm.home.score == itm.away.score) { lstCont.push(shortSum); totDraw += 1; }
+
+                //        });
+
+                //        if (lstCont.length > 0) { mxConteo = Math.max(...lstCont.map(o => o)); };
+
+                //        var itmEvent: HotCheck = {
+                //          pais: e.nombrePublico,
+                //          liga: e.nombreForApi,
+                //          conteoActual: conteo,
+                //          maxConteo: mxConteo,
+                //          totDraw: totDraw,
+                //          gamesFinished: iteracionNo,
+                //          lstConteo: [...lstCont],
+                //          percentDraw: (iteracionNo > 0) ? (totDraw / iteracionNo) * 100 : 0,
+                //          dateNextGame: ""
+                //        }
+                //        console.log(itmEvent);
+
+                //        this.hl.push(itmEvent);
+
+                //    }
+                //  });
+               });
+
+             }
+             console.log(listDetalle)
+
+           }
+
+      } catch (error) {
+        console.error(`Error al obtener el ID`, error);
+      }
+
     });
   }
 
