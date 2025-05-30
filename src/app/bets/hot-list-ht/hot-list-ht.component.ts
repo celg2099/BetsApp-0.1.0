@@ -18,7 +18,7 @@ export class HotListComponentHt {
   constructor(private betService: BetsService, private http: HttpClient) { }
 
 
-  generarLista() {
+  async generarLista() {
 
     this.hl = [];
 
@@ -27,118 +27,121 @@ export class HotListComponentHt {
 
     ligasOrdenadasByName = ligasOrdenadasByName.sort((a, b) => (a.nombrePublico > b.nombrePublico) ? 1 : ((b.nombrePublico > a.nombrePublico) ? -1 : 0));
 
-    ligasOrdenadasByName.forEach(async e => {
+      console.log(ligasOrdenadasByName);
+  for (let i = 0; i < ligasOrdenadasByName.length; i++) {
 
-      try {
-        var resp = await firstValueFrom(this.betService.getEventosByLiga2(e.nombreForApi));
-
+     try {
+         var e = ligasOrdenadasByName[i];
+         var resp = await firstValueFrom(this.betService.getEventosByLiga2(e.nombreForApi));
+          console.log('e:',e);
            if (resp.Stages.length > 0) {
 
              var listDetalle: ScoresByPeriod[] = [];
+
              if (resp.Stages[0].Events) {
 
                console.log(e.nombreForApi);
 
-               resp.Stages[0].Events.forEach(async g => {
-                 var strGetByGame = g.T1[0].Nm.toLocaleLowerCase().replace(' ', '-') + '-vrs-' + g.T2[0].Nm.toLocaleLowerCase().replace(' ', '-') + '/' + g.Eid + '/stats/';
-                 var url = e.nombreForApi + strGetByGame;
+               var iteracionNo = 0;
+               var lenghStages = resp.Stages[0].Events.length;
 
-                 var iteracionNo = 0;
-
-
-                 this.betService.totDrawHt = 0;
-
-                 var data = await firstValueFrom(this.betService.getDetailGame(url));
-
-                     var detalle = this.getDetalleGame(data);
-                     if (detalle != null) {
-
-                       var homeScore: Away = { score: detalle.scoresByPeriod[0].home.score }
-                       var awayScore: Away = { score: detalle.scoresByPeriod[0].away.score }
-
-                       var x: ScoresByPeriod = {
-
-                         label: "",
-                         home: homeScore,
-                         away: awayScore,
-                         shouldDisplayFirst: false
-                       };
-
-                       listDetalle.push(x);
-                    }
-
-                //  this.betService.getDetailGame(url).subscribe({
-                //    next: (data) => {
-                //      var detalle = this.getDetalleGame(data);
-                //      if (detalle != null) {
-
-                //        var homeScore: Away = { score: detalle.scoresByPeriod[0].home.score }
-                //        var awayScore: Away = { score: detalle.scoresByPeriod[0].away.score }
-
-                //        var x: ScoresByPeriod = {
-
-                //          label: "",
-                //          home: homeScore,
-                //          away: awayScore,
-                //          shouldDisplayFirst: false
-                //        };
-
-                //        listDetalle.push(x);
-                //      }
-                //    },
-                //    error: (error) => {
-                //      console.error('Error al obtener HTML:', error);
-                //    },
-                //    complete: () => {
-
-                //        this.sortList();
-
-                //        var conteo = 0;
-                //        var shortSum = 0;
-                //        var mxConteo = 0;
-                //        var totDraw = 0;
-                //        var lstCont: number[] = [];
-
-                //        listDetalle.forEach((itm) => {
-
-                //          shortSum = conteo;
-                //          conteo = (itm.home.score == itm.away.score) ? 0 : conteo += 1;
-
-                //          if (itm.home.score == itm.away.score) { lstCont.push(shortSum); totDraw += 1; }
-
-                //        });
-
-                //        if (lstCont.length > 0) { mxConteo = Math.max(...lstCont.map(o => o)); };
-
-                //        var itmEvent: HotCheck = {
-                //          pais: e.nombrePublico,
-                //          liga: e.nombreForApi,
-                //          conteoActual: conteo,
-                //          maxConteo: mxConteo,
-                //          totDraw: totDraw,
-                //          gamesFinished: iteracionNo,
-                //          lstConteo: [...lstCont],
-                //          percentDraw: (iteracionNo > 0) ? (totDraw / iteracionNo) * 100 : 0,
-                //          dateNextGame: ""
-                //        }
-                //        console.log(itmEvent);
-
-                //        this.hl.push(itmEvent);
-
-                //    }
-                //  });
-               });
+               console.log('length: ',resp.Stages[0].Events.length);
+               this.fillList(resp.Stages[0].Events, e.nombreForApi);
 
              }
-             console.log(listDetalle)
+
 
            }
 
-      } catch (error) {
+
+        
+      }
+      catch (error) {
         console.error(`Error al obtener el ID`, error);
       }
 
-    });
+  }
+
+ }
+
+
+  async fillList(eventos: Event[], nombreForApi: string) {
+
+    var listDetalle: ScoresByPeriod[] = [];
+
+    var lstEventos = eventos.filter(e => (e.Eps == Eps.Ft));
+
+    for (let j = 0; j <= lstEventos.length; j++) {
+
+      var g = lstEventos[j];
+
+      var strGetByGame = g.T1[0].Nm.toLocaleLowerCase().replace(' ', '-') + '-vrs-' + g.T2[0].Nm.toLocaleLowerCase().replace(' ', '-') + '/' + g.Eid + '/stats/';
+      var url = nombreForApi + strGetByGame;
+
+      this.betService.totDrawHt = 0;
+
+      var data = await firstValueFrom(this.betService.getDetailGame(url));
+
+      var detalle = this.getDetalleGame(data);
+      if (detalle != null) {
+
+        if (detalle.scoresByPeriod[0].home.score != undefined) {
+          var homeScore: Away = { score: detalle.scoresByPeriod[0].home.score }
+          var awayScore: Away = { score: detalle.scoresByPeriod[0].away.score }
+
+          var x: ScoresByPeriod = {
+
+            label: "",
+            home: homeScore,
+            away: awayScore,
+            shouldDisplayFirst: false
+          };
+          listDetalle.push(x);
+        }
+      }
+
+      if (j == (lstEventos.length-1)){
+           console.log('aqui finaliza',listDetalle);
+
+                        var conteo = 0;
+                        var shortSum = 0;
+                        var mxConteo = 0;
+                        var totDraw = 0;
+                        var lstCont: number[] = [];
+
+                        listDetalle.forEach((itm) => {
+
+                          shortSum = conteo;
+                          conteo = (itm.home.score == itm.away.score) ? 0 : conteo += 1;
+
+                          if (itm.home.score == itm.away.score) { lstCont.push(shortSum); totDraw += 1; }
+
+                        });
+
+                        if (lstCont.length > 0) { mxConteo = Math.max(...lstCont.map(o => o)); };
+
+                        var itmEvent: HotCheck = {
+                          pais: nombreForApi,
+                          liga: nombreForApi,
+                          conteoActual: conteo,
+                          maxConteo: mxConteo,
+                          totDraw: totDraw,
+                          gamesFinished: listDetalle.length,
+                          lstConteo: [...lstCont],
+                          percentDraw: (listDetalle.length > 0) ? (totDraw / listDetalle.length) * 100 : 0,
+                          dateNextGame: ""
+                        }
+                        console.log(itmEvent);
+
+                        this.hl.push(itmEvent);
+
+
+      }
+     
+    }
+
+
+
   }
 
   sortList() {
