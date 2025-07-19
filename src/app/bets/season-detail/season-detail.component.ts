@@ -143,6 +143,10 @@ get juegosFinalizadosHt() {
   return this.betService.resultados;
 }
 
+ get shortResultReverse() {
+    return this.betService.shortCountHt.reverse();
+  }
+
 constructor(private betService : BetsService) {
 }
 

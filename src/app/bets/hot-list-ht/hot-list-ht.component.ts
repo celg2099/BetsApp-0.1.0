@@ -21,57 +21,62 @@ export class HotListComponentHt {
   async generarLista() {
 
     this.hl = [];
-
-    var ligasOrdenadasByName = [...this.betService.ligas].slice(0, 2);
+    var ligasOrdenadasByName = [...this.betService.ligas];
     ligasOrdenadasByName = ligasOrdenadasByName.filter(itm => itm.historico != 0);
 
     ligasOrdenadasByName = ligasOrdenadasByName.sort((a, b) => (a.nombrePublico > b.nombrePublico) ? 1 : ((b.nombrePublico > a.nombrePublico) ? -1 : 0));
+    ligasOrdenadasByName = ligasOrdenadasByName.slice(0,6);
 
-      console.log(ligasOrdenadasByName);
-  for (let i = 0; i < ligasOrdenadasByName.length; i++) {
+     ligasOrdenadasByName.forEach( ((e,i) => {
 
-     try {
-         var e = ligasOrdenadasByName[i];
-         var resp = await firstValueFrom(this.betService.getEventosByLiga2(e.nombreForApi));
-          console.log('e:',e);
-           if (resp.Stages.length > 0) {
+      try {
+        // 1. Se obtienen todos los Eventos (partidos) de un aliga en especifico.
+        console.log('Iteracion... ',i);
+        console.log('Ejecutandose... ',e.nombrePublico);
 
-             var listDetalle: ScoresByPeriod[] = [];
-
-             if (resp.Stages[0].Events) {
-
-               console.log(e.nombreForApi);
-
-               var iteracionNo = 0;
-               var lenghStages = resp.Stages[0].Events.length;
-
-               console.log('length: ',resp.Stages[0].Events.length);
-               this.fillList(resp.Stages[0].Events, e.nombreForApi);
-
-             }
-
-
-           }
-
-
-        
+        this.betService.getEventosByLiga(e.nombreForApi).subscribe(
+        resp => {
+        if (resp.Stages.length > 0) {
+          if (resp.Stages[0].Events) {
+            console.log(e.nombreForApi);
+            console.log('length: ', resp.Stages[0].Events.length);
+            this.fillList(resp.Stages[0].Events, e.nombreForApi, e.nombrePublico);
+          }
+        }
+        });
       }
-      catch (error) {
-        console.error(`Error al obtener el ID`, error);
-      }
+      catch (error) { console.error(`Error al obtener el ID`, error); }
 
+    }));
+
+    // for (let i = 0; i < ligasOrdenadasByName.length; i++) {
+    //   try {
+    //     var e = ligasOrdenadasByName[i];
+    //     // 1. Se obtienen todos los Eventos (partidos) de un aliga en especifico.
+    //     console.log('Iteracion... ',i);
+    //     console.log('Ejecutandose... ',e.nombrePublico);
+    //     var resp = await firstValueFrom(this.betService.getEventosByLiga2(e.nombreForApi));
+    //     console.log('e:', e);
+    //     if (resp.Stages.length > 0) {
+    //       if (resp.Stages[0].Events) {
+    //         console.log(e.nombreForApi);
+    //         console.log('length: ', resp.Stages[0].Events.length);
+    //         this.fillList(resp.Stages[0].Events, e.nombreForApi, e.nombrePublico);
+    //       }
+    //     }
+    //   }
+    //   catch (error) { console.error(`Error al obtener el ID`, error); }
+    // }
   }
 
- }
 
-
-  async fillList(eventos: Event[], nombreForApi: string) {
+  async fillList(eventos: Event[], nombreForApi: string, nombrePublico: string) {
 
     var listDetalle: ScoresByPeriod[] = [];
 
     var lstEventos = eventos.filter(e => (e.Eps == Eps.Ft));
 
-    for (let j = 0; j <= lstEventos.length; j++) {
+    for (let j = 0; j < lstEventos.length; j++) {
 
       var g = lstEventos[j];
 
@@ -90,7 +95,6 @@ export class HotListComponentHt {
           var awayScore: Away = { score: detalle.scoresByPeriod[0].away.score }
 
           var x: ScoresByPeriod = {
-
             label: "",
             home: homeScore,
             away: awayScore,
@@ -121,7 +125,7 @@ export class HotListComponentHt {
                         if (lstCont.length > 0) { mxConteo = Math.max(...lstCont.map(o => o)); };
 
                         var itmEvent: HotCheck = {
-                          pais: nombreForApi,
+                          pais: nombrePublico,
                           liga: nombreForApi,
                           conteoActual: conteo,
                           maxConteo: mxConteo,
@@ -134,14 +138,8 @@ export class HotListComponentHt {
                         console.log(itmEvent);
 
                         this.hl.push(itmEvent);
-
-
       }
-     
     }
-
-
-
   }
 
   sortList() {

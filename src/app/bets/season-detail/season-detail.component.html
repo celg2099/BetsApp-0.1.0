@@ -32,7 +32,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-11">
+  <div class="col-md-10">
     <table *ngIf="resultados.length > 0" class="table table-striped">
         <thead>
             <tr>
@@ -75,5 +75,19 @@
         </tbody>
     </table>
 </div>
+    <div class="col-md-1">
+        <table  *ngIf="shortResultHt.length > 0" class="table table-striped table-dark">
+            <thead>
+                <tr>
+                    <th scope="col">REVERSE</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of shortResultReverse">
+                    <td> {{ item }} </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <br>
