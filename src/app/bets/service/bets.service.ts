@@ -24,7 +24,7 @@ export class BetsService {
     },
     {
       nombrePublico: 'Argentina',
-      nombreForApi: 'argentina/primera-division-apertura/'
+      nombreForApi: 'argentina/primera-division-clausura/'
     },
     {
       nombrePublico: 'Argentina B Zone A',
@@ -52,14 +52,14 @@ export class BetsService {
     // },
     {
       nombrePublico: 'Guatemala',
-      nombreForApi: 'guatemala/liga-nacional-clausura/'
+      nombreForApi: 'guatemala/liga-nacional-apertura/'
     },
     {
       nombrePublico: 'Bulgaria',
       nombreForApi: 'bulgaria/parva-liga/'
     },
     {
-      nombrePublico: '1. Canada',
+      nombrePublico: 'Canada',
       nombreForApi: 'canada/premier-league/'
     },
     // {
@@ -95,7 +95,7 @@ export class BetsService {
       nombreForApi: 'spain/laliga/'
     },
     {
-      nombrePublico: '1. España L2',
+      nombrePublico: 'España L2',
       nombreForApi: 'spain/laliga-2/'
     },
     // {
@@ -107,8 +107,8 @@ export class BetsService {
     //   nombreForApi: 'spain/laliga-2-2023-2024/'
     // },
     {
-      nombrePublico: 'Colombia 2025 A',
-      nombreForApi: 'colombia/primera-a-apertura/'
+      nombrePublico: 'Colombia 2025 C',
+      nombreForApi: 'colombia/primera-a-clausura/'
     },
     {
       nombrePublico: 'Colombia B 2025 A',
@@ -136,7 +136,7 @@ export class BetsService {
     // },
     {
       nombrePublico: 'Mexico',
-      nombreForApi: 'mexico/liga-mx-clausura/'
+      nombreForApi: 'mexico/liga-mx-apertura/'
     },
     {
       nombrePublico: 'Portugal',
@@ -534,7 +534,7 @@ export class BetsService {
     //   nombreForApi: 'czech-republic/1st-league-2023-2024/'
     // },
     {
-      nombrePublico: '1. Brasil',
+      nombrePublico: 'Brasil',
       nombreForApi: 'brazil/serie-a/'
     },
     // {
@@ -562,7 +562,7 @@ export class BetsService {
     //   nombreForApi: 'brazil/serie-a-2024/'
     // },
     {
-      nombrePublico: '1. Brasil B',
+      nombrePublico: 'Brasil B',
       nombreForApi: 'brazil/serie-b/'
     },
     // {
@@ -786,16 +786,60 @@ export class BetsService {
       nombreForApi: 'wales/cymru-premier/'
     },
     {
-      nombrePublico: 'Paraguay A',
-      nombreForApi: 'paraguay/division-profesional-apertura/'
+      nombrePublico: 'Paraguay C',
+      nombreForApi: 'paraguay/division-profesional-clausura/'
     },
     {
       nombrePublico: 'Peru A',
       nombreForApi: 'peru/liga-1-apertura/'
     },
+    // {
+    //   nombrePublico: '1. Uruguay C 2019',
+    //   nombreForApi: 'uruguay/primera-division-clausura-2019/'
+    // },
+    // {
+    //   nombrePublico: '1. Uruguay C 2020',
+    //   nombreForApi: 'uruguay/primera-division-clausura-2020/'
+    // },
+    // {
+    //   nombrePublico: '1. Uruguay A 2020',
+    //   nombreForApi: 'uruguay/primera-division-apertura-2020/'
+    // },
+    // {
+    //   nombrePublico: '1. Uruguay A 2021',
+    //   nombreForApi: 'uruguay/primera-division-apertura-2021/'
+    // },
+    // {
+    //   nombrePublico: '1. Uruguay C 2021',
+    //   nombreForApi: 'uruguay/primera-division-clausura-2021/'
+    // },
+    // {
+    //   nombrePublico: '1. Uruguay A 2022',
+    //   nombreForApi: 'uruguay/primera-division-apertura-2022/'
+    // },
+    // {
+    //   nombrePublico: '1. Uruguay C 2022',
+    //   nombreForApi: 'uruguay/primera-division-clausura-2022/'
+    // },
+    // {
+    //   nombrePublico: '1. Uruguay A 2023',
+    //   nombreForApi: 'uruguay/primera-division-apertura-2023/'
+    // },
+    // {
+    //   nombrePublico: '1. Uruguay C 2023',
+    //   nombreForApi: 'uruguay/primera-division-clausura-2023/'
+    // },
+    // {
+    //   nombrePublico: '1. Uruguay A 2024',
+    //   nombreForApi: 'uruguay/primera-division-apertura-2024/'
+    // },
+    // {
+    //   nombrePublico: '1. Uruguay C 2024',
+    //   nombreForApi: 'uruguay/primera-division-clausura/'
+    // },
     {
-      nombrePublico: 'Uruguay',
-      nombreForApi: 'uruguay/primera-division-apertura/'
+      nombrePublico: '1. Uruguay C 2025',
+      nombreForApi: 'uruguay/primera-division-clausura/'
     },
     {
       nombrePublico: 'Indonesia',
@@ -999,7 +1043,7 @@ export class BetsService {
     //   nombreForApi: 'albania/kategoria-superiore-2023-2024/'
     // },
     {
-      nombrePublico: '1. Finlandia - veikkausliiga',
+      nombrePublico: 'Finlandia - veikkausliiga',
       nombreForApi: 'finland/veikkausliiga/'
     },
     // {
@@ -1273,7 +1317,7 @@ export class BetsService {
       historico: 1
     },
     {
-      nombrePublico: '1. Argelia',
+      nombrePublico: 'Argelia',
       nombreForApi: 'algeria/ligue-1/',
       historico: 1
     },
@@ -1308,7 +1352,7 @@ export class BetsService {
     //   historico: 1
     // },
     {
-      nombrePublico: '1. Senegal',
+      nombrePublico: 'Senegal',
       nombreForApi: 'senegal/premier-league/',
       historico: 1
     },
@@ -1540,7 +1584,7 @@ export class BetsService {
       TLGoals: Number(e.Tr1), // Team Local Goals
       TVGoals: Number(e.Tr2), // Team Visit Goals
       CurrentCount: -1, // Partidos sin empate hasta nuevo empate
-      Date: new Date(y)
+      Date: new Date(x)
     }
 
     return itmEvent;
