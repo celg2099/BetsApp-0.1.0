@@ -111,8 +111,8 @@ export class BetsService {
       nombreForApi: 'colombia/primera-a-clausura/'
     },
     {
-      nombrePublico: 'Colombia B 2025 A',
-      nombreForApi: 'colombia/primera-b-apertura/'
+      nombrePublico: 'Colombia B 2025 C',
+      nombreForApi: 'colombia/primera-b-clausura/'
     },
     {
       nombrePublico: 'Armenia',
@@ -184,7 +184,7 @@ export class BetsService {
     // },
     {
       nombrePublico: 'Costa Rica C',
-      nombreForApi: 'costa-rica/primera-division-clausura/'
+      nombreForApi: 'costa-rica/primera-division-apertura/'
     },
     {
       nombrePublico: 'Dinamarca',
@@ -247,8 +247,8 @@ export class BetsService {
     //    nombreForApi: 'egypt/premier-league-2023-2024/'
     //  },
     {
-      nombrePublico: 'El Salvador C',
-      nombreForApi: 'el-salvador/primera-division-clausura/'
+      nombrePublico: 'El Salvador A',
+      nombreForApi: 'el-salvador/primera-division-apertura/'
     },
     // {
     //   nombrePublico: 'El Salvador 2019-2020 C',
@@ -698,7 +698,7 @@ export class BetsService {
       nombreForApi: 'poland/ekstraklasa/'
     },
     {
-      nombrePublico: '1. Polonia L1',
+      nombrePublico: 'Polonia L1',
       nombreForApi: 'poland/i-liga/'
     },
     // {
@@ -790,8 +790,8 @@ export class BetsService {
       nombreForApi: 'paraguay/division-profesional-clausura/'
     },
     {
-      nombrePublico: 'Peru A',
-      nombreForApi: 'peru/liga-1-apertura/'
+      nombrePublico: 'Peru C',
+      nombreForApi: 'peru/primera-division-clausura/'
     },
     // {
     //   nombrePublico: '1. Uruguay C 2019',
@@ -838,7 +838,7 @@ export class BetsService {
     //   nombreForApi: 'uruguay/primera-division-clausura/'
     // },
     {
-      nombrePublico: '1. Uruguay C 2025',
+      nombrePublico: 'Uruguay C 2025',
       nombreForApi: 'uruguay/primera-division-clausura/'
     },
     {
@@ -879,7 +879,7 @@ export class BetsService {
     // },
     {
       nombrePublico: 'Korea del Sur',
-      nombreForApi: 'republic-of-korea/k-league-1'
+      nombreForApi: 'republic-of-korea/k-league-1/'
     },
     {
       nombrePublico: 'Tailandia',
@@ -1482,6 +1482,7 @@ export class BetsService {
     this.http.get<Liga>(`${this.servicioUrl}${query}-6`, { params })
       .subscribe((resp) => {
         console.log(resp);
+        console.log(`${this.servicioUrl}${query}-6`);
 
         this.resultadosDetail = [];
         this.shortCountHt = [];
