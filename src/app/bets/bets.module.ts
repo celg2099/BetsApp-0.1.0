@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { BetsPageComponent } from './bets-page/bets-page.component';
 import { MarcadoresComponent } from './marcadores/marcadores.component';
@@ -33,6 +34,7 @@ import { HotListComponentHt } from './hot-list-ht/hot-list-ht.component'
     SharedModule,
     MatButtonModule,
     MatIconModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule
   ]})
 export class BetsModule { }

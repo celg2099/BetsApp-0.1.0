@@ -311,8 +311,20 @@ export class BetsService {
       nombreForApi: 'greece/super-league/'
     },
     {
-      nombrePublico: 'Honduras',
+      nombrePublico: 'Honduras C',
       nombreForApi: 'honduras/liga-nacional-clausura/'
+    },
+        {
+      nombrePublico: 'Honduras A',
+      nombreForApi: 'honduras/liga-nacional-apertura/'
+    },
+    {
+      nombrePublico: 'Nicaragua A',
+      nombreForApi: 'nicaragua/primera-division-apertura/'
+    },
+    {
+      nombrePublico: 'Nicaragua C',
+      nombreForApi: 'nicaragua/primera-division-clausura/'
     },
     {
       nombrePublico: 'Israel',
@@ -775,7 +787,7 @@ export class BetsService {
     },
     {
       nombrePublico: 'Turquia',
-      nombreForApi: 'turkiye/super-lig'
+      nombreForApi: 'turquia/1st-lig'
     },
     {
       nombrePublico: 'Turquia L1',
@@ -843,7 +855,7 @@ export class BetsService {
     },
     {
       nombrePublico: 'Indonesia',
-      nombreForApi: 'indonesia/liga-1/'
+      nombreForApi: 'indonesia/super-league/'
     },
     // {
     //   nombrePublico: 'Indonesia 2021',
@@ -915,11 +927,11 @@ export class BetsService {
     },
     {
       nombrePublico: 'Mexico Expansión C',
-      nombreForApi: 'mexico/liga-de-expansion-mx-clausura/'
+      nombreForApi: 'mexico/liga-de-expansion-mx-apertura/'
     },
     {
       nombrePublico: 'México Femenil',
-      nombreForApi: 'mexico/liga-mx-clausura-women/'
+      nombreForApi: 'mexico/womens-liga-mx-apertura/'
     },
 {
       nombrePublico: 'USA MLS',
@@ -1318,7 +1330,7 @@ export class BetsService {
     },
     {
       nombrePublico: 'Argelia',
-      nombreForApi: 'algeria/ligue-1/',
+      nombreForApi: 'algeria/ligue-1-2025/',
       historico: 1
     },
     // {

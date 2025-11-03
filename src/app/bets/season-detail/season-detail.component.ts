@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { BetsService } from '../service/bets.service';
 import { Detail } from '../interface/detail.interface';
 import { Summary, Liga, Eps, Event, LigaHomologada, HotCheck } from '../interface/results.interface';
-import { of, concatMap } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { ListStatics } from '../interface/results.interface';
 
 
@@ -10,86 +11,143 @@ import { ListStatics } from '../interface/results.interface';
   selector: 'app-season-detail',
   templateUrl: './season-detail.component.html'
 })
-export class SeasonDetailComponent  {
+export class SeasonDetailComponent implements OnDestroy {
+
+  private destroy$ = new Subject<void>();
 
   datos: string = "";
   conteoActualHt: number = 0;
   hideSumary: number = 0;
+  errorCount: number = 0;
+  
+  // Cache para evitar recálculos
+  private _cachedShortResultReverse: number[] | null = null;
+  private _lastShortCountLength: number = 0;
 
   get seasonDetail() {
     return this.betService.proximos;
   }
 
-  shoHTScore( ) {
+  // Método principal para obtener y procesar los scores de medio tiempo
+  shoHTScore(): void {
+    try {
+      this.initializeHTScoreData();
+      this.processGamesForHTScores();
+      this.showNotification('Procesando scores de medio tiempo...', 'info');
+    } catch (error) {
+      this.handleError('Error al iniciar el procesamiento', error);
+    }
+  }
+
+  // Inicializa las variables y arrays necesarios para el procesamiento
+  private initializeHTScoreData(): void {
     this.hideSumary = 0;
+    this.errorCount = 0;
     this.betService.resultadosDetail = [];
     this.betService.shortCountHt = [];
-    var conteo = 0;
-    var shortSum = 0;
-    var iteracionNo = 0;
     this.betService.totDrawHt = 0;
-    this.betService.resultados.forEach((e) => {
+    this.clearCache();
+  }
 
-      var strGetByGame = e.TLName.toLocaleLowerCase().replace(' ','-') + '-vrs-' + e.TVName.toLocaleLowerCase().replace(' ','-') + '/'+ e.Eid + '/stats/';
-      var url = this.betService.currEvent + strGetByGame;
+  // Procesa cada juego para obtener los scores de medio tiempo
+  private processGamesForHTScores(): void {
+    let iteracionNo = 0;
+    const totalGames = this.betService.resultados.length;
 
-       this.betService.getDetailGame(url).subscribe({
-        next: (data) => {
-          iteracionNo += 1;
-          var detalle = this.getDetalleGame(data);
-          var detallGame: Summary = e;
+    this.betService.resultados.forEach((game) => {
+      const gameUrl = this.buildGameUrl(game);
 
-          if (detalle){
-             detallGame.TLHtGoals = detalle.scoresByPeriod[0].home.score;
-             detallGame.TVHtGoals = detalle.scoresByPeriod[0].away.score;
-          }
-          this.betService.resultadosDetail.push(detallGame);
-        },
-        error: (error) => {
-          console.error('Error al obtener HTML:', error);
-        },
-        complete: () => {
+      this.betService.getDetailGame(gameUrl)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (data) => this.handleGameDataResponse(data, game, ++iteracionNo, totalGames),
+          error: (error) => this.handleGameError(error, game),
+          complete: () => this.finalizeHTScoreProcessing()
+        });
+    });
+  }
 
-          if (iteracionNo == this.betService.resultados.length){
-            this.sortTable();
-            this.betService.resultadosDetail.forEach((f) => {
-              shortSum = conteo;
-              conteo = (f.TLHtGoals == f.TVHtGoals) ? 0 : conteo += 1;
-              if (f.TLHtGoals == f.TVHtGoals) { this.betService.shortCountHt.push(shortSum); this.betService.totDrawHt += 1; }
-            });
-            this.betService.shortCountHt.push(conteo);
-          }
+  // Construye la URL específica para obtener las estadísticas del juego
+  private buildGameUrl(game: Summary): string {
+    const homeTeam = game.TLName.toLowerCase().replace(' ', '-');
+    const awayTeam = game.TVName.toLowerCase().replace(' ', '-');
+    return `${this.betService.currEvent}${homeTeam}-vrs-${awayTeam}/${game.Eid}/stats/`;
+  }
 
-          if (this.betService.shortCountHt.length > 0) {
-            this.conteoActualHt = this.betService.shortCountHt[0];
-          }
-          this.hideSumary = 1;
-        }
-       });
-     });
-   //  this.betService.shortCountHt.push(conteo);
- }
+  // Maneja la respuesta de datos del juego y actualiza los scores de medio tiempo
+  private handleGameDataResponse(data: string, game: Summary, iteracionNo: number, totalGames: number): void {
+    try {
+      const detalle = this.getDetalleGame(data);
+      const detallGame: Summary = { ...game };
+
+      if (detalle) {
+        detallGame.TLHtGoals = detalle.scoresByPeriod[0].home.score;
+        detallGame.TVHtGoals = detalle.scoresByPeriod[0].away.score;
+      }
+
+      this.betService.resultadosDetail.push(detallGame);
+
+      if (iteracionNo === totalGames) {
+        this.processHTDrawStatistics();
+      }
+    } catch (error) {
+      this.handleError(`Error procesando juego ${game.TLName} vs ${game.TVName}`, error);
+    }
+  }
+
+  // Procesa las estadísticas de empates en medio tiempo
+  private processHTDrawStatistics(): void {
+    this.sortTable();
+    let conteo = 0;
+
+    this.betService.resultadosDetail.forEach((game) => {
+      const shortSum = conteo;
+      conteo = (game.TLHtGoals === game.TVHtGoals) ? 0 : conteo + 1;
+
+      if (game.TLHtGoals === game.TVHtGoals) {
+        this.betService.shortCountHt.push(shortSum);
+        this.betService.totDrawHt += 1;
+      }
+    });
+
+    this.betService.shortCountHt.push(conteo);
+  }
+
+  // Finaliza el procesamiento y actualiza la UI
+  private finalizeHTScoreProcessing(): void {
+    if (this.betService.shortCountHt.length > 0) {
+      this.conteoActualHt = this.betService.shortCountHt[0];
+    }
+    this.hideSumary = 1;
+    
+    // Limpiar cache cuando hay nuevos datos
+    this.clearCache();
+
+    const message = this.errorCount > 0
+      ? `Procesamiento completado con ${this.errorCount} errores`
+      : 'Scores de medio tiempo procesados exitosamente';
+
+    this.showNotification(message, this.errorCount > 0 ? 'warning' : 'success');
+  }
 
   getDetalleGame(htlm: string): Detail | null {
+    try {
+      const inicioString = htlm.indexOf('scoresByPeriod');
+      const finString = htlm.indexOf('aggregateHomeScore');
 
-    var inicioString = htlm.indexOf('scoresByPeriod');
-    var finString = htlm.indexOf('aggregateHomeScore');
-
-    var detalle: Detail;
-
-    if (inicioString > 0){
-       var textoExtraido: string = "{"+htlm.substring(inicioString-1, finString-2)+"}";
-       detalle = JSON.parse(textoExtraido);
-       return detalle;
-    }
-    else {
-      console.log('No data detected.')
+      if (inicioString > 0) {
+        const textoExtraido = "{" + htlm.substring(inicioString - 1, finString - 2) + "}";
+        return JSON.parse(textoExtraido);
+      }
+      return null;
+    } catch (error) {
+      this.handleError('Error al parsear datos del juego', error);
       return null;
     }
-};
+  }
 
-get currentCount() {
-  return this.betService.conteoActual;
+get currentCountHt() {
+  return this.conteoActualHt;
 }
 
 sortTable() {
@@ -143,11 +201,55 @@ get juegosFinalizadosHt() {
   return this.betService.resultados;
 }
 
- get shortResultReverse() {
-    return this.betService.shortCountHt.reverse();
+get shortResultReverse() {
+  // Usar cache si los datos no han cambiado
+  if (this._cachedShortResultReverse && this._lastShortCountLength === this.betService.shortCountHt.length) {
+    return this._cachedShortResultReverse;
+  }
+  
+  // Calcular y cachear el resultado
+  this._cachedShortResultReverse = [...this.betService.shortCountHt].reverse();
+  this._lastShortCountLength = this.betService.shortCountHt.length;
+  
+  return this._cachedShortResultReverse;
+}
+
+// Limpia el cache cuando hay nuevos datos
+private clearCache(): void {
+  this._cachedShortResultReverse = null;
+  this._lastShortCountLength = 0;
+}
+
+constructor(
+  private betService: BetsService,
+  private snackBar: MatSnackBar
+) {}
+
+  // Maneja errores específicos de juegos individuales
+  private handleGameError(error: any, game: Summary): void {
+    this.errorCount++;
+    console.error(`Error en juego ${game.TLName} vs ${game.TVName}:`, error);
   }
 
-constructor(private betService : BetsService) {
+  // Maneja errores generales y muestra notificaciones
+  private handleError(message: string, error: any): void {
+    console.error(message, error);
+    this.showNotification(`${message}. Ver consola para detalles.`, 'error');
+  }
+
+  // Muestra notificaciones al usuario
+  private showNotification(message: string, type: 'success' | 'error' | 'warning' | 'info'): void {
+    const config = {
+      duration: type === 'error' ? 5000 : 3000,
+      panelClass: [`snackbar-${type}`]
+    };
+
+    this.snackBar.open(message, 'Cerrar', config);
+  }
+
+ngOnDestroy(): void {
+  this.destroy$.next();
+  this.destroy$.complete();
 }
 
 }
