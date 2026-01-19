@@ -24,7 +24,7 @@ export class BetsService {
     },
     {
       nombrePublico: 'Argentina',
-      nombreForApi: 'argentina/primera-division-clausura/'
+      nombreForApi: 'argentina/primera-division-apertura/'
     },
     {
       nombrePublico: 'Argentina B Zone A',
@@ -52,7 +52,7 @@ export class BetsService {
     // },
     {
       nombrePublico: 'Guatemala',
-      nombreForApi: 'guatemala/liga-nacional-apertura/'
+      nombreForApi: 'guatemala/liga-nacional-clausura/'
     },
     {
       nombrePublico: 'Bulgaria',
@@ -107,12 +107,12 @@ export class BetsService {
     //   nombreForApi: 'spain/laliga-2-2023-2024/'
     // },
     {
-      nombrePublico: 'Colombia 2025 C',
-      nombreForApi: 'colombia/primera-a-clausura/'
+      nombrePublico: 'Colombia 2026 A',
+      nombreForApi: 'colombia/primera-a-apertura/'
     },
     {
-      nombrePublico: 'Colombia B 2025 C',
-      nombreForApi: 'colombia/primera-b-clausura/'
+      nombrePublico: 'Colombia B 2026 A',
+      nombreForApi: 'colombia/primera-b-apertura/'
     },
     {
       nombrePublico: 'Armenia',
@@ -136,7 +136,7 @@ export class BetsService {
     // },
     {
       nombrePublico: 'Mexico',
-      nombreForApi: 'mexico/liga-mx-apertura/'
+      nombreForApi: 'mexico/liga-mx-clausura/'
     },
     {
       nombrePublico: 'Portugal',
@@ -184,7 +184,7 @@ export class BetsService {
     // },
     {
       nombrePublico: 'Costa Rica C',
-      nombreForApi: 'costa-rica/primera-division-apertura/'
+      nombreForApi: 'costa-rica/primera-division-clausura/'
     },
     {
       nombrePublico: 'Dinamarca',
@@ -196,7 +196,7 @@ export class BetsService {
     },
     {
       nombrePublico: 'Ecuador',
-      nombreForApi: 'ecuador/serie-a-1-stage/'
+      nombreForApi: 'ecuador/serie-a-2-stage/'
     },
     {
       nombrePublico: 'Ecuador B',
@@ -247,8 +247,8 @@ export class BetsService {
     //    nombreForApi: 'egypt/premier-league-2023-2024/'
     //  },
     {
-      nombrePublico: 'El Salvador A',
-      nombreForApi: 'el-salvador/primera-division-apertura/'
+      nombrePublico: 'El Salvador C',
+      nombreForApi: 'el-salvador/primera-division-clausura/'
     },
     // {
     //   nombrePublico: 'El Salvador 2019-2020 C',
@@ -799,11 +799,11 @@ export class BetsService {
     },
     {
       nombrePublico: 'Paraguay C',
-      nombreForApi: 'paraguay/division-profesional-clausura/'
+      nombreForApi: 'paraguay/division-profesional-apertura/'
     },
     {
-      nombrePublico: 'Peru C',
-      nombreForApi: 'peru/primera-division-clausura/'
+      nombrePublico: 'Peru A',
+      nombreForApi: 'peru/primera-division-apertura/'
     },
     // {
     //   nombrePublico: '1. Uruguay C 2019',
@@ -850,8 +850,8 @@ export class BetsService {
     //   nombreForApi: 'uruguay/primera-division-clausura/'
     // },
     {
-      nombrePublico: 'Uruguay C 2025',
-      nombreForApi: 'uruguay/primera-division-clausura/'
+      nombrePublico: 'Uruguay A 2026',
+      nombreForApi: 'uruguay/primera-division-apertura/'
     },
     {
       nombrePublico: 'Indonesia',
@@ -927,7 +927,7 @@ export class BetsService {
     },
     {
       nombrePublico: 'Mexico Expansión C',
-      nombreForApi: 'mexico/liga-de-expansion-mx-apertura/'
+      nombreForApi: 'mexico/liga-de-expansion-mx-clausura/'
     },
     {
       nombrePublico: 'México Femenil',
@@ -1088,7 +1088,7 @@ export class BetsService {
     },
     {
       nombrePublico: 'Argentina - Women',
-      nombreForApi: 'argentina/womens-primera-division-a/'
+      nombreForApi: 'argentina/womens-primera-division-c/'
     },
     // {
     //   nombrePublico: '2. Argentina - Women A 2022',
@@ -1493,6 +1493,7 @@ export class BetsService {
 
     this.http.get<Liga>(`${this.servicioUrl}${query}-6`, { params })
       .subscribe((resp) => {
+        console.log('entro aqui');
         console.log(resp);
         console.log(`${this.servicioUrl}${query}-6`);
 
